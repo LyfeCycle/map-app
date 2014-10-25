@@ -1,5 +1,27 @@
-var Map = require('ti.map');
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Requires
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
 var win = Titanium.UI.createWindow();
+var Map = require('./map_functions');
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Variables
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
+ var mainMap = new Map(defaultLat, defaultLong, defaultTime);;
+ // This is in case we don't have Geolocation
+ var defaultLat = 33.74511, defaultLong = 84.38993, defaultTime = 0; 
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Get locations & initialize Map
+ *
+ * * * * * * * * * * * * * * * * * * * * */
 
 if (Ti.Geolocation.locationServicesEnabled) {
     Ti.Geolocation.purpose = 'Get Current Location';
@@ -7,39 +29,44 @@ if (Ti.Geolocation.locationServicesEnabled) {
     Ti.Geolocation.distanceFilter = 10;
     Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
 
+    Ti.Geolocation.getCurrentPosition(function(e) { // Gets starting position
+        if (e.error) {
+            alert('Couldn\'t get location');
+
+        } else {
+            mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
+        }
+    });
+
+    // Updates when location changes
     Ti.Geolocation.addEventListener('location', function(e) {
         if (e.error) {
-            alert('Error: ' + e.error);
+            alert('Couldn\'t get location');
         } else {
             Ti.API.info(e.coords);
+            mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
         }
     });
 } else {
     alert('Please enable location services');
 }
-var mountainView = Map.createAnnotation({
-    latitude:37.390749,
-    longitude:-122.081651,
-    title:"Appcelerator Headquarters",
-    subtitle:'Mountain View, CA',
-    pincolor:Map.ANNOTATION_RED,
-    myid:1 // Custom property to uniquely identify this annotation.
-});
 
-var mapview = Map.createView({
-    mapType: Map.NORMAL_TYPE,
-    region: {latitude:33.74511, longitude:-84.38993,
-            latitudeDelta:0.01, longitudeDelta:0.01},
-    animate:true,
-    regionFit:true,
-    userLocation:true,
-    annotations:[mountainView]
-});
-Ti.API.info("Checking in");
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Create views
+ *
+ * * * * * * * * * * * * * * * * * * * * */
 
-win.add(mapview);
-// Handle click events on any annotations on this map.
-mapview.addEventListener('click', function(evt) {
-    Ti.API.info("Annotation Double click");
-});
+
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Add views to window
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
+win.add(mainMap.getMapView());
 win.open();
+
+
+

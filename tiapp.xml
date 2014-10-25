@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>kevinmannix</publisher>
     <url>http://</url>
-    <description/>
+    <description>undefined</description>
     <copyright>2014 by kevinmannix</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -56,8 +56,8 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <!-- Add this line to your modules section -->
-        <module platform="iphone">ti.map</module>
+        <module platform="iphone">ti.map</module> <!-- Do we need this?? -->
+        <module platform="iphone">bencoding.map</module>
     </modules>
     <deployment-targets>
         <target device="android">false</target>
