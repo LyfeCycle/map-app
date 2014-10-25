@@ -13,6 +13,7 @@
     <analytics>true</analytics>
     <guid>bdd08830-554f-414b-8243-97c288cc784b</guid>
     <property name="ti.ui.defaultunit" type="string">dp</property>
+    <property name="ti.android.fastdev" type="bool">false</property>
     <ios>
         <plist>
             <dict>

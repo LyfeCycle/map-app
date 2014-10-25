@@ -1,15 +1,19 @@
 var map = require('bencoding.map');
+var constants = require('./constants');
 
 
-function Map(startLat, startLong, startTime) {
+function Map(startLat, startLong, startTime, topSpace, bottomSpace, deviceHeight) {
 
 	this.startLat = 33.74511, 
     this.startLong = 84.38993,
     this.startTime = 0,
-    this.delta = 0.5,
+    this.delta = 0.005,
     this.currentLat = startLat,
     this.currentLong = startLong,
     this.currentTime = startTime,
+    this.topSpace = topSpace,
+    this.bottomSpace = bottomSpace,
+    this.deviceHeight = deviceHeight,
     this.mapView;
     this.createMapViewWithAnnotations();
 }
@@ -23,7 +27,9 @@ Map.prototype.createMapView = function() {
 		    mapType: map.NORMAL_TYPE,
 		    animate:true,
 		    regionFit:true,
-		    region:{latitude:this.startLat, longitude:this.startLong, latitudeDelta: this.delta, longitudeDelta: this.delta}
+		    region:{latitude:this.startLat, longitude:this.startLong, latitudeDelta: this.delta, longitudeDelta: this.delta},
+		    height: this.deviceHeight - (this.topSpace + this.bottomSpace),
+		    top: this.topSpace
 		});
 	}
 
