@@ -17,7 +17,6 @@ if (Ti.Geolocation.locationServicesEnabled) {
 } else {
     alert('Please enable location services');
 }
-
 var mountainView = Map.createAnnotation({
     latitude:37.390749,
     longitude:-122.081651,
@@ -36,7 +35,6 @@ var mapview = Map.createView({
     userLocation:true,
     annotations:[mountainView]
 });
-
 Ti.API.info("Checking in");
 
 win.add(mapview);
