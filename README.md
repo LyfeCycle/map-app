@@ -22,3 +22,14 @@
        	devices list
        	Make sure Genymotion device is running to get IP address from 0.0.0.0
 
+              https://developer.appcelerator.com/question/154253/there-must-be-a-way-to-use-the-new-genymotion-emulator
+
+
+              To run the shell script to do all building & deploying, run
+
+              
+              ./buildApp.sh
+              from the directory. If you get a permission denied try:
+              chmod 755 buildApp.sh
+              You can also add 'info' or 'debug' as well
+
