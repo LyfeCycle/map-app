@@ -1,12 +1,12 @@
 var constants = require('./constants');
 
-function BottomBar(bottomSize, deviceHeight) {
-	this.bottomSize = bottomSize;
-	this.deviceHeight = deviceHeight;
+function BottomBar() {
+	this.bottomSize = constants.bottomSize;
+	this.deviceHeight = constants.deviceHeight;
 	this.makeBottomBar();
 }
 
-BottomBar.prototype.makeBottomBar = function(bottomSize, deviceHeight) {
+BottomBar.prototype.makeBottomBar = function() {
 
 	/* * * * * * * * * * * * * * * * * * * * *
 	 * 
@@ -90,6 +90,12 @@ BottomBar.prototype.makeBottomBar = function(bottomSize, deviceHeight) {
 	 	//width: this.bottomSize*0.3,
 	 	visible: true
 	 });
+
+	 /* * * * * * * * * * * * * * * * * * * * *
+	 * 
+	 *  Add all views
+	 *
+	 * * * * * * * * * * * * * * * * * * * * */
 
 	 this.bottomBar.add(this.distanceLabel);
 	 this.bottomBar.add(this.textLabel);

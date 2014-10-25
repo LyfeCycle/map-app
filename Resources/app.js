@@ -18,13 +18,9 @@ var constants = require('./constants');
 
 
  // This is in case we don't have Geolocation
-var defaultLat = 33.74511, defaultLong = 84.38993, defaultTime = 0; 
-var deviceHeight = Titanium.Platform.displayCaps.platformHeight, 
-     deviceWidth = Titanium.Platform.displayCaps.platformWidth,
-     topSpace = 60,
-     bottomSpace = 120;
-var mainMap = new Map(defaultLat, defaultLong, defaultTime, topSpace, bottomSpace, deviceHeight);
-var bottomBar = new BottomBar(bottomSpace, deviceHeight);
+
+var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.defaultTime);
+var bottomBar = new BottomBar();
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -69,7 +65,7 @@ if (Ti.Geolocation.locationServicesEnabled) {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-var topbarView = TopBar.makeTopBar(topSpace);
+var topbarView = TopBar.makeTopBar();
 
 
 

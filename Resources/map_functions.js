@@ -2,7 +2,7 @@ var map = require('bencoding.map');
 var constants = require('./constants');
 
 
-function Map(startLat, startLong, startTime, topSpace, bottomSpace, deviceHeight) {
+function Map(startLat, startLong, startTime) {
 
 	this.startLat = 33.74511, 
     this.startLong = 84.38993,
@@ -11,8 +11,8 @@ function Map(startLat, startLong, startTime, topSpace, bottomSpace, deviceHeight
     this.currentLat = startLat,
     this.currentLong = startLong,
     this.currentTime = startTime,
-    this.topSpace = topSpace,
-    this.bottomSpace = bottomSpace,
+    this.topSpace = constants.topSpace,
+    this.bottomSpace = constants.bottomSpace,
     this.deviceHeight = deviceHeight,
     this.mapView;
     this.createMapViewWithAnnotations();
