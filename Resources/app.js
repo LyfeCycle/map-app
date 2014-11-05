@@ -24,7 +24,6 @@ var animations = require('views/animations');
  // This is in case we don't have Geolocation
 
 var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.defaultTime);
-var menuBarOpen = false;
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -79,15 +78,7 @@ var bottom_menu_view = bottom_menu.createMenuBar();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-corner_tab_view.addEventListener('click', function() {
-    if (menuBarOpen) {
-        bottom_menu_view.animate(animations.closeBottomBar());
-        menuBarOpen = false;
-    } else {
-        bottom_menu_view.animate(animations.openBottomBar());
-        menuBarOpen = true;
-    }
-});
+ var events = new Events(bottom_menu_view, corner_tab_view);
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
