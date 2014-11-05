@@ -13,4 +13,4 @@ module.exports.titleText = 'LyfeCycle';
 module.exports.shadowColor = '#aaa';
 module.exports.shadowOffset = {x:1,y:1};
 module.exports.shadowRadius = 3;
-module.exports.cornerTabSize = 150;
+module.exports.cornerTabSize = 110;
