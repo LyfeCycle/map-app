@@ -1,7 +1,6 @@
 var map = require('bencoding.map');
 var constants = require('./constants');
 
-
 function Map(startLat, startLong, startTime) {
 
 	this.startLat = 33.74511, 
@@ -35,11 +34,11 @@ Map.prototype.createMapView = function() {
 
 Map.prototype.createMapViewWithAnnotations = function() {
 		this.createMapView();
-		this.addPolygons([]);
+		this.addPolygons();
 		// Add the other possibilities as we continue
 	}
 
-Map.prototype.addPolygons =	function(polygons) {
+Map.prototype.addPolygons =	function() {
 		var myPolygon = {title:'Colorado',
 	                tag: 42,
 	                color:'#880000',
@@ -48,20 +47,24 @@ Map.prototype.addPolygons =	function(polygons) {
 	                strokeColor:'#000',                    
 	                points:[
 	                    {
-	                        latitude:33.74511,
-	                        longitude:-84.38992
+	                        latitude:37.0004,
+	                        longitude:-109.0448
 	                    },
 	                    {
-	                        latitude:33.74511,
-	                        longitude:-84.38993
+	                        latitude:36.9949,
+	                        longitude:-102.0424
 	                    },
 	                    {
-	                        latitude:33.74512,
-	                        longitude:-84.38995
+	                        latitude:41.0006,
+	                        longitude:-102.0534
 	                    },
 	                    {
-	                        latitude:33.74512,
-	                        longitude:-84.38993
+	                        latitude:40.9996,
+	                        longitude:-109.0489
+	                    },
+	                    {
+	                        latitude:37.0004,
+	                        longitude:-109.0448
 	                    }
 	                ]
 	            };
