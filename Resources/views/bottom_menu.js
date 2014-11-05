@@ -4,8 +4,8 @@ var createMenuBar = function() {
 
 	var menu = Ti.UI.createView({
         width: constants.deviceWidth,
-        height: 30,
-        bottom: -30,
+        height: constants.bottomSize,
+        bottom: constants.bottomSize*-1,
         left: 0,
         //bottom: -constants.bottomSize,
         backgroundColor: constants.green

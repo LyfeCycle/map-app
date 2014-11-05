@@ -9,7 +9,7 @@ var openBottomBar = function() {
 
 var closeBottomBar = function() {
 	return Ti.UI.createAnimation({
-		bottom: -30,
+		bottom: constants.bottomSize*-1,
 		duration: 500
 	});
 }

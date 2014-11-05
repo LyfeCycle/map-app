@@ -48,24 +48,20 @@ Map.prototype.addPolygons =	function(polygons) {
 	                strokeColor:'#000',                    
 	                points:[
 	                    {
-	                        latitude:37.0004,
-	                        longitude:-109.0448
+	                        latitude:33.74511,
+	                        longitude:-84.38992
 	                    },
 	                    {
-	                        latitude:36.9949,
-	                        longitude:-102.0424
+	                        latitude:33.74511,
+	                        longitude:-84.38993
 	                    },
 	                    {
-	                        latitude:41.0006,
-	                        longitude:-102.0534
+	                        latitude:33.74512,
+	                        longitude:-84.38995
 	                    },
 	                    {
-	                        latitude:40.9996,
-	                        longitude:-109.0489
-	                    },
-	                    {
-	                        latitude:37.0004,
-	                        longitude:-109.0448
+	                        latitude:33.74512,
+	                        longitude:-84.38993
 	                    }
 	                ]
 	            };

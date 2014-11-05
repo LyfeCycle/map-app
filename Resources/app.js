@@ -96,8 +96,8 @@ corner_tab_view.addEventListener('click', function() {
  * * * * * * * * * * * * * * * * * * * * */
 
 win.add(mainMap.getMapView());
-win.add(corner_tab_view);
 win.add(bottom_menu_view);
+win.add(corner_tab_view);
 //win.add(bottom_menu.getBottomMenu());
 win.open();
 

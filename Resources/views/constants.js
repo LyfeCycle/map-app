@@ -5,6 +5,7 @@ module.exports.deviceHeight = Titanium.Platform.displayCaps.platformHeight;
 module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
 module.exports.topSpace = 0;
 module.exports.bottomSpace = 0;
+module.exports.bottomSize = 55;
 module.exports.defaultLat = 33.74511;
 module.exports.defaultLong = 84.38993;
 module.exports.defaultTime = 0; 
