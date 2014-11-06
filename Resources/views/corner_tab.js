@@ -7,8 +7,8 @@ var cornerTab = function() {
 		width: constants.cornerTabSize,
 		backgroundColor: constants.green,
 		borderRadius: constants.cornerTabSize/2,
-		top: constants.deviceHeight - constants.cornerTabSize*.75,
-		left: constants.deviceWidth - constants.cornerTabSize*.75
+		top: constants.deviceHeight - constants.cornerTabSize*constants.cornerTabSizeRatio,
+		left: constants.deviceWidth - constants.cornerTabSize*constants.cornerTabSizeRatio
 	});
 
 	var corner_pic = Ti.UI.createImageView({

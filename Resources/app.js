@@ -9,7 +9,7 @@ var Map = require('views/map_functions');
 var TopBar = require('views/top_bar');
 var constants = require('views/constants');
 var corner_tab = require('views/corner_tab');
-var bottom_menu = require('views/bottom_menu');
+var MenuBar = require('views/bottom_menu');
 var open_button = require('views/corner_tab');
 var Events = require('views/events');
 var animations = require('views/animations');
@@ -24,6 +24,7 @@ var animations = require('views/animations');
  // This is in case we don't have Geolocation
 
 var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.defaultTime);
+var bottom_menu = new MenuBar();
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -68,17 +69,22 @@ if (Ti.Geolocation.locationServicesEnabled) {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-//var topbarView = TopBar.makeTopBar();
 var corner_tab_view = corner_tab.cornerTab();
-var bottom_menu_view = bottom_menu.createMenuBar();
+var bottom_menu_view = bottom_menu.getMenuBar();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  Add event listeners
+ *  THIS MIGHT HAVE TO BE CHANGED
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- var events = new Events(bottom_menu_view, corner_tab_view);
+ var events = new Events(bottom_menu_view, 
+                         corner_tab_view, 
+                         bottom_menu.getSocialButton(),
+                         bottom_menu.getTimeButton(),
+                         bottom_menu.getOptionButton()
+                         );
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 

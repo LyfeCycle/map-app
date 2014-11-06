@@ -9,7 +9,7 @@ var animations = require('./animations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(bottom_menu_view, corner_tab_view) {
+function Events(bottom_menu_view, corner_tab_view, social_button, time_button, option_button) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -17,6 +17,9 @@ function Events(bottom_menu_view, corner_tab_view) {
 	// Views
 	this.bottom_menu_view = bottom_menu_view;
 	this.corner_tab_view = corner_tab_view;
+	this.social_button = social_button;
+	this.time_button = time_button;
+	this.option_button = option_button;
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -28,7 +31,8 @@ Events.prototype.isMenuBarOpen = function() {
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
- *  Events, which 
+ *  Events, which will be added in 
+ *  addEventListeners
  *
  * * * * * * * * * * * * * * * * * * * * */
 
@@ -40,6 +44,18 @@ Events.prototype.toggleMenuBar = function(bottom_menu) {
 		this.bottom_menu_view.animate(animations.openBottomBar());
 		this.menuBarOpen = true;
 	}
+}
+
+Events.prototype.socialButton = function() {
+	alert("socialButton");
+}
+
+Events.prototype.timeButton = function() {
+	alert("timeButton");
+}
+
+Events.prototype.optionButton = function() {
+	alert("optionButton");
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -59,7 +75,17 @@ Events.prototype.addEventListeners = function() {
 		self.toggleMenuBar();
 	});
 
+	self.social_button.addEventListener('click', function() {
+		self.socialButton();
+	});
 
+	self.time_button.addEventListener('click', function() {
+		self.timeButton();
+	});
+
+	self.option_button.addEventListener('click', function() {
+		self.optionButton();
+	});
 
 }
 
