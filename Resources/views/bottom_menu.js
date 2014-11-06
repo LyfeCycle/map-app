@@ -27,7 +27,7 @@ MenuBar.prototype.createTimeButton = function() {
         height: constants.bottomBarButtonSize,
         width: 'auto',
         top: constants.bottomBarButtonSpace,
-        image: constants.timerButtonImage
+        image: constants.timeButtonImage
     });
 }
 
@@ -53,9 +53,9 @@ MenuBar.prototype.createMenuBar = function() {
 
     // Space buttons
 	var rowWidth = constants.deviceWidth - constants.cornerTabSize*constants.cornerTabSizeRatio;
-    var leftFirst = (rowWidth*0.15);//-constants.bottomBarButtonSize/2;
-    var leftSecond = (rowWidth*0.50);//-constants.bottomBarButtonSize/2;
-    var leftThird = (rowWidth*0.85);//-constants.bottomBarButtonSize/2;
+    var leftFirst = (rowWidth*0.10);
+    var leftSecond = (rowWidth*0.40);
+    var leftThird = (rowWidth*0.70);
     this.social_button.left = leftFirst;
     this.time_button.left = leftSecond;
     this.option_button.left = leftThird;

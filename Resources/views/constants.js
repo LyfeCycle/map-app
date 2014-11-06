@@ -2,6 +2,7 @@
 // Constants gloabl
 module.exports.green = '#9ae588';
 module.exports.cream = '#F1ECD6';
+module.exports.secondaryColor = '#000000';
 module.exports.labelFontFamily = 'Helvetica Neue';
 module.exports.deviceHeight = Titanium.Platform.displayCaps.platformHeight;
 module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
@@ -15,10 +16,10 @@ module.exports.bottomBarButtonSize = module.exports.bottomSize*module.exports.bu
 module.exports.bottomBarButtonSpace = module.exports.bottomSize*(1-module.exports.buttomBarButtonRatio)/2;
 module.exports.socialButtonImage = 'images/social.png';
 module.exports.socialButtonImageGray = 'images/social_gray.png';
-module.exports.timerButtonImage = 'images/timer.png';
-module.exports.timerButtonImageGray = 'images/timer_gray.png';
-module.exports.optionButtonImage = 'images/option.png';
-module.exports.optionButtonImageGray = 'images/option_gray.png';
+module.exports.timeButtonImage = 'images/timer.png';
+module.exports.timeButtonImageGray = 'images/timer_gray.png';
+module.exports.optionButtonImage = 'images/gear.png';
+module.exports.optionButtonImageGray = 'images/gear_gray.png';
 
 // Constants for the map view
 module.exports.defaultLat = 33.74511;

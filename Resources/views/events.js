@@ -13,6 +13,9 @@ function Events(bottom_menu_view, corner_tab_view, social_button, time_button, o
 
 	// State Variables
 	this.menuBarOpen = false;
+	this.socialButtonGrayed = false;
+	this.timeButtonGrayed = false;
+	this.optionButtonGrayed = false;
 
 	// Views
 	this.bottom_menu_view = bottom_menu_view;
@@ -47,15 +50,33 @@ Events.prototype.toggleMenuBar = function(bottom_menu) {
 }
 
 Events.prototype.socialButton = function() {
-	alert("socialButton");
+	if (!this.socialButtonGrayed) { 
+		this.social_button.image = constants.socialButtonImageGray;
+		this.socialButtonGrayed = !this.socialButtonGrayed;
+	} else {
+		this.social_button.image = constants.socialButtonImage;
+		this.socialButtonGrayed = !this.socialButtonGrayed;
+	}
 }
 
 Events.prototype.timeButton = function() {
-	alert("timeButton");
+	if (!this.timeButtonGrayed) { 
+		this.time_button.image = constants.timeButtonImageGray;
+		this.timeButtonGrayed = !this.timeButtonGrayed;
+	} else {
+		this.time_button.image = constants.timeButtonImage;
+		this.timeButtonGrayed = !this.timeButtonGrayed;
+	}
 }
 
 Events.prototype.optionButton = function() {
-	alert("optionButton");
+	if (!this.optionButtonGrayed) { 
+		this.option_button.image = constants.optionButtonImageGray;
+		this.optionButtonGrayed = !this.optionButtonGrayed;
+	} else {
+		this.option_button.image = constants.optionButtonImage;
+		this.optionButtonGrayed = !this.optionButtonGrayed;
+	}
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
