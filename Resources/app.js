@@ -13,6 +13,7 @@ var MenuBar = require('views/bottom_menu');
 var open_button = require('views/corner_tab');
 var Events = require('views/events');
 var animations = require('views/animations');
+var OptionView = require('views/option_view');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -25,6 +26,7 @@ var animations = require('views/animations');
 
 var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.defaultTime);
 var bottom_menu = new MenuBar();
+var option_view = new OptionView();
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -95,6 +97,7 @@ var bottom_menu_view = bottom_menu.getMenuBar();
 win.add(mainMap.getMapView());
 win.add(bottom_menu_view);
 win.add(corner_tab_view);
+win.add(option_view.getOptionView());
 //win.add(bottom_menu.getBottomMenu());
 win.open();
 

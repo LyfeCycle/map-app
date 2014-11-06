@@ -31,3 +31,10 @@ module.exports.shadowOffset = {x:1,y:1};
 module.exports.shadowRadius = 3;
 module.exports.cornerTabSize = 110;
 module.exports.cornerTabSizeRatio = 0.75;
+
+// Constants for option modal
+module.exports.modalWidth = module.exports.deviceWidth*0.8;
+module.exports.modalHeight = module.exports.modalWidth;
+module.exports.modalBorderRadius = 25;
+module.exports.modalBackgroundColor = 'white';
+module.exports.modalColumnsPerRow = 3;
