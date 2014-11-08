@@ -73,6 +73,7 @@ if (Ti.Geolocation.locationServicesEnabled) {
 
 var corner_tab_view = corner_tab.cornerTab();
 var bottom_menu_view = bottom_menu.getMenuBar();
+var map_view = mainMap.getMapView();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -94,10 +95,10 @@ var bottom_menu_view = bottom_menu.getMenuBar();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-win.add(mainMap.getMapView());
+win.add(map_view);
 win.add(bottom_menu_view);
 win.add(corner_tab_view);
-win.add(option_view.getOptionView());
+//win.add(option_view.getOptionView());
 //win.add(bottom_menu.getBottomMenu());
 win.open();
 
