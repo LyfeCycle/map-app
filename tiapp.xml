@@ -57,7 +57,7 @@
         <theme>default</theme>
     </mobileweb>
     <modules>
-        <module platform="iphone">ti.map</module> <!-- Do we need this?? -->
+        <module platform="iphone">ti.map</module>
         <module platform="iphone">bencoding.map</module>
     </modules>
     <deployment-targets>

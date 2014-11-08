@@ -38,3 +38,18 @@ module.exports.modalHeight = module.exports.modalWidth;
 module.exports.modalBorderRadius = 25;
 module.exports.modalBackgroundColor = 'white';
 module.exports.modalColumnsPerRow = 3;
+
+// Constants for the nav bar
+module.exports.navStyle = Ti.UI.INPUT_BORDERSTYLE_ROUNDED;
+module.exports.navColor = '#336699';
+module.exports.navWidth = 250;
+module.exports.navHeight = 35;
+module.exports.navButtonWidth = 35;
+module.exports.navTop = 30;
+module.exports.navButtonLeftSpace = 5;
+module.exports.navLeft = (module.exports.deviceWidth - 
+	(module.exports.navButtonWidth + module.exports.navWidth + module.exports.navButtonLeftSpace))/2;
+module.exports.navButtonImage = 'images/mag_glass.png';
+
+
+

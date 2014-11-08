@@ -9,7 +9,7 @@ var animations = require('./animations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(bottom_menu_view, corner_tab_view, social_button, time_button, option_button) {
+function Events(bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_button) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -23,6 +23,7 @@ function Events(bottom_menu_view, corner_tab_view, social_button, time_button, o
 	this.social_button = social_button;
 	this.time_button = time_button;
 	this.option_button = option_button;
+	this.nav_button = nav_button;
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -79,6 +80,10 @@ Events.prototype.optionButton = function() {
 	}
 }
 
+Events.prototype.searchNav = function() {
+	alert('Nav works');
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -108,6 +113,9 @@ Events.prototype.addEventListeners = function() {
 		self.optionButton();
 	});
 
+	self.nav_button.addEventListener('click', function() {
+		self.searchNav();
+	});
 }
 
 module.exports = Events;

@@ -14,6 +14,7 @@ var open_button = require('views/corner_tab');
 var Events = require('views/events');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
+var NavBar = require('views/navigation_bar');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -27,6 +28,7 @@ var OptionView = require('views/option_view');
 var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.defaultTime);
 var bottom_menu = new MenuBar();
 var option_view = new OptionView();
+var nav_bar = new NavBar();
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -74,6 +76,7 @@ if (Ti.Geolocation.locationServicesEnabled) {
 var corner_tab_view = corner_tab.cornerTab();
 var bottom_menu_view = bottom_menu.getMenuBar();
 var map_view = mainMap.getMapView();
+var nav_view = nav_bar.getNavBar();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -86,7 +89,8 @@ var map_view = mainMap.getMapView();
                          corner_tab_view, 
                          bottom_menu.getSocialButton(),
                          bottom_menu.getTimeButton(),
-                         bottom_menu.getOptionButton()
+                         bottom_menu.getOptionButton(),
+                         nav_bar.getNavButton()
                          );
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -98,6 +102,7 @@ var map_view = mainMap.getMapView();
 win.add(map_view);
 win.add(bottom_menu_view);
 win.add(corner_tab_view);
+win.add(nav_view);
 //win.add(option_view.getOptionView());
 //win.add(bottom_menu.getBottomMenu());
 win.open();
