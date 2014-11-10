@@ -1,5 +1,6 @@
-var constants = require('./constants');
-var animations = require('./animations');
+var constants = require('../views/constants');
+var animations = require('../views/animations');
+var Directions = require('./destination');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -9,7 +10,7 @@ var animations = require('./animations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_button) {
+function Events(map_view, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -18,12 +19,14 @@ function Events(bottom_menu_view, corner_tab_view, social_button, time_button, o
 	this.optionButtonGrayed = false;
 
 	// Views
+	this.map_view = map_view;
 	this.bottom_menu_view = bottom_menu_view;
 	this.corner_tab_view = corner_tab_view;
 	this.social_button = social_button;
 	this.time_button = time_button;
 	this.option_button = option_button;
-	this.nav_button = nav_button;
+	this.nav_button = nav_bar.getNavButton();
+	this.nav_text = nav_bar.getTextField();
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -81,7 +84,9 @@ Events.prototype.optionButton = function() {
 }
 
 Events.prototype.searchNav = function() {
-	alert('Nav works');
+	var destinationText = this.nav_text.value;
+	var direction = new Directions();
+	direction.addDestinationToMap();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
