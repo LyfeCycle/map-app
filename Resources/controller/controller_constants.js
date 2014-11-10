@@ -1,0 +1,7 @@
+var apiConstants = require('../api_constants');
+
+// Constants for destination
+module.exports.startReq = 'https://maps.googleapis.com/maps/api/directions/json?origin=';
+module.exports.endReq = '&key=' + apiConstants.apiKey + '&avoid=highways&mode=bicycling&sensor=false';
+module.exports.destinationFailMessage = 'Unfortunately, we couldn\'t find that route.\nTry again.';
+module.exports.timeoutReq = 5000;

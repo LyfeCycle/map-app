@@ -1,6 +1,6 @@
 var constants = require('../views/constants');
 var animations = require('../views/animations');
-var Directions = require('./destination');
+var Destination = require('./destination');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -10,7 +10,7 @@ var Directions = require('./destination');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(map_view, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar) {
+function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -19,7 +19,7 @@ function Events(map_view, bottom_menu_view, corner_tab_view, social_button, time
 	this.optionButtonGrayed = false;
 
 	// Views
-	this.map_view = map_view;
+	this.mainMap = mainMap;
 	this.bottom_menu_view = bottom_menu_view;
 	this.corner_tab_view = corner_tab_view;
 	this.social_button = social_button;
@@ -85,8 +85,14 @@ Events.prototype.optionButton = function() {
 
 Events.prototype.searchNav = function() {
 	var destinationText = this.nav_text.value;
-	var direction = new Directions();
-	direction.addDestinationToMap();
+	Ti.API.info(destinationText);
+	if (typeof destinationText === 'undefined' || destinationText == "") {
+		alert("Please enter a destination!")
+	} else {
+		var currentLocation = mainMap.getCurrentLocation();
+		var destination = new Destination(this.mainMap, currentLocation.lat, currentLocation.lng, 0);
+		destination.addDestinationToMap();
+	}
 }
 
 /* * * * * * * * * * * * * * * * * * * * *

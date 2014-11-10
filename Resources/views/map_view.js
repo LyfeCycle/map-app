@@ -1,10 +1,14 @@
-var map = require('bencoding.map');
+var map = require('ti.map');
 var constants = require('./constants');
+
+// Our annotations should go like this:
+// _id = 0 is the currentLocation
+// _id = 1 is the destination
 
 function Map(startLat, startLong, startTime) {
 
-	this.startLat = 33.74511, 
-    this.startLong = 84.38993,
+	this.startLat = 42.35141754150391, 
+    this.startLong = -71.12548828125,
     this.startTime = 0,
     this.delta = 0.005,
     this.currentLat = startLat,
@@ -14,7 +18,8 @@ function Map(startLat, startLong, startTime) {
     this.bottomSpace = constants.bottomSpace,
     this.deviceHeight = constants.deviceHeight,
     this.mapView;
-    this.createMapViewWithAnnotations();
+    this.createMapView();
+    //this.addMarker(this.startLat, this.startLong, "Current Location", 0);
 }
 
 Map.prototype.getMapView = function() {
@@ -22,55 +27,23 @@ Map.prototype.getMapView = function() {
 }
 
 Map.prototype.createMapView = function() {
-		this.mapView = map.createView({
-		    mapType: map.NORMAL_TYPE,
-		    animate:true,
-		    regionFit:true,
-		    region:{latitude:this.startLat, longitude:this.startLong, latitudeDelta: this.delta, longitudeDelta: this.delta},
-		    height: this.deviceHeight - (this.topSpace + this.bottomSpace),
-		    top: this.topSpace
-		});
-	}
+	this.mapView = map.createView({
+	    mapType: map.NORMAL_TYPE,
+	    animate:true,
+	    regionFit:true,
+	    region:{latitude:this.startLat, longitude:this.startLong, latitudeDelta: this.delta, longitudeDelta: this.delta},
+	    height: this.deviceHeight - (this.topSpace + this.bottomSpace),
+	    top: this.topSpace
+	});
+}
 
-Map.prototype.createMapViewWithAnnotations = function() {
-		this.createMapView();
-		this.addPolygons();
-		// Add the other possibilities as we continue
-	}
+Map.prototype.addMarker = function(annotation) {
+	this.mapView.addAnnotation(annotation);
+}
 
-Map.prototype.addPolygons =	function() {
-		var myPolygon = {title:'Colorado',
-	                tag: 42,
-	                color:'#880000',
-	                alpha:0.5,
-	                lineWidth:1.2,
-	                strokeColor:'#000',                    
-	                points:[
-	                    {
-	                        latitude:37.0004,
-	                        longitude:-109.0448
-	                    },
-	                    {
-	                        latitude:36.9949,
-	                        longitude:-102.0424
-	                    },
-	                    {
-	                        latitude:41.0006,
-	                        longitude:-102.0534
-	                    },
-	                    {
-	                        latitude:40.9996,
-	                        longitude:-109.0489
-	                    },
-	                    {
-	                        latitude:37.0004,
-	                        longitude:-109.0448
-	                    }
-	                ]
-	            };
-		//Add Colorado polgyon to MapView
-		this.mapView.addPolygon(myPolygon);
-	}
+Map.prototype.removeMarker = function(annotation) {
+	this.mapView.removeAnnotation(annotation);
+}
 
 Map.prototype.updateValues = function(lat, lon, time) {
 	this.currentTime = time;
@@ -84,6 +57,21 @@ Map.prototype.updateValues = function(lat, lon, time) {
             longitudeDelta:this.delta
         };
     this.mapView.setLocation(region);
+    //this.mapView.removeAnnotation
 }
+
+Map.prototype.addDestinationRoute = function(route) {
+	this.mapView.addRoute(route);
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Getters
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
+ Map.prototype.getCurrentLocation = function() {
+ 	return {'lat': this.currentLat, 'lng': this.currentLong};
+ }
 
 module.exports = Map;

@@ -15,6 +15,7 @@ var Events = require('controller/events');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
+var Annotation = require('controller/annotations');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -49,7 +50,6 @@ if (Ti.Geolocation.locationServicesEnabled) {
 
         } else {
             mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
-           // bottomBar.updateDistance(Math.round(Math.random()*1000));
         }
     });
 
@@ -60,7 +60,6 @@ if (Ti.Geolocation.locationServicesEnabled) {
         } else {
             Ti.API.info(e.coords);
             mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
-          //  bottomBar.updateDistance(Math.round(Math.random()*1000));
         }
     });
 } else {
@@ -85,7 +84,7 @@ var nav_view = nav_bar.getNavBar();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- var events = new Events(map_view,
+ var events = new Events(mainMap,
                          bottom_menu_view, 
                          corner_tab_view, 
                          bottom_menu.getSocialButton(),

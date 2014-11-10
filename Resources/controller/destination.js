@@ -1,53 +1,57 @@
-var apiConstants = require('../api_constants');
+var constants = require('./controller_constants');
+var MapModule = require('ti.map');
 
-function Destination(mapView, current_lat, current_long, destination) {
-	this.apiKey = apiConstants.apiKey;
-	this.map_view = mapView;
-	this.destination_point = destination;
+function Destination(mainMap, current_lat, current_long, destination) {
+	this.mainMap = mainMap;
 	this.current_lat = current_lat;
 	this.current_long = current_long;
+	this.destination_point = destination;
 	this.addDestinationToMap();
 }
 
+// Parent function that will call helpers, but ultimately add a route from the input destination
+// and project this on a map
 Destination.prototype.addDestinationToMap = function() {
-	var httpRequestURL = 'https://maps.googleapis.com/maps/api/directions/json?origin=' +
-					  '42 Gardner St, Allston MA' +// + this.current_location + 
-					  '&destination=49 Pratt St, Allston MA' +// + this.destination_point +
-					  '&key=' + this.apiKey + 
-					  '&avoid=highways&mode=bicycling&sensor=false';
+	var self = this;
+	var rURL =  constants.startReq + 
+				'42 Gardner St, Allston MA' +// + this.current_location + 
+				'&destination=49 Pratt St, Allston MA' +// + this.destination_point +
+				constants.endReq;	  
 
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
-		 var steps = parseJSONtoRoute(this.responseText);
+		 self.addRouteToMap(self.parseJSONtoRoute(this.responseText));
 		},
 		onerror : function(e) {
-		 Ti.API.debug(e.error);
-		 alert('Unfortunately, we couldn\'t find that route.\nTry again.');
+		 alert(constants.destinationFailMessage);
 		},
-		timeout : 5000  // in milliseconds
+		timeout : constants.timeoutReq
 	 });
-	 client.open("GET", encodeURI(httpRequestURL));
-	 client.send();
+
+	// Send request
+	client.open("GET", encodeURI(rURL));
+	client.send();
 }
 
-function parseJSONtoRoute(json) {
+Destination.prototype.parseJSONtoRoute = function(json) {
 	var jsonParsed = JSON.parse(json);
 	var all_legs = jsonParsed["routes"][0]['legs'];
 	var first_leg_steps = all_legs[0]['steps'];
-	var steps = [];
+	var steps_meta = [], steps = [];
 	for (i in first_leg_steps) {
 		var step = first_leg_steps[i];
-		steps.push({'text': step['html_instructions'], 
-					  'distance': step.distance['text'], 
-					  'duration': step.duration['text'], 
-					  'end_lat': step['end_location']['lat'],
-					  'end_lng': step['end_location']['lng']
-					  });
+		steps.push({'latitude': step['end_location']['lat'],
+					'longitude': step['end_location']['lng']});
+		steps_meta.push({'text': step['html_instructions'], 
+					     'distance': step.distance['text'], 
+					     'duration': step.duration['text']});
 	}
-	for (step in steps) {
-		Ti.API.info(steps[step]);
-	}
-	return steps;
+	return {'steps':steps, 'meta':steps_meta};
+}
+
+Destination.prototype.addRouteToMap = function(steps) {
+	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
+	this.mainMap.addDestinationRoute(MapModule.createRoute({points: steps['steps'], color: 'blue', width: 3}));
 }
 
 module.exports = Destination;
