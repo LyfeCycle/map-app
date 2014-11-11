@@ -22,10 +22,6 @@ function Map(startLat, startLong, startTime) {
     //this.addMarker(this.startLat, this.startLong, "Current Location", 0);
 }
 
-Map.prototype.getMapView = function() {
-	return this.mapView;
-}
-
 Map.prototype.createMapView = function() {
 	this.mapView = map.createView({
 	    mapType: map.NORMAL_TYPE,
@@ -37,13 +33,11 @@ Map.prototype.createMapView = function() {
 	});
 }
 
-Map.prototype.addMarker = function(annotation) {
-	this.mapView.addAnnotation(annotation);
-}
-
-Map.prototype.removeMarker = function(annotation) {
-	this.mapView.removeAnnotation(annotation);
-}
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Alterations to map
+ *
+ * * * * * * * * * * * * * * * * * * * * */
 
 Map.prototype.updateValues = function(lat, lon, time) {
 	this.currentTime = time;
@@ -60,6 +54,30 @@ Map.prototype.updateValues = function(lat, lon, time) {
     //this.mapView.removeAnnotation
 }
 
+Map.prototype.changeDelta = function(lat, lng, delta) {
+	this.mapView.setLocation({
+        animate : true,
+        latitude: lat,
+        longitude: lng,
+        latitudeDelta:delta,
+        longitudeDelta:delta,
+    });
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Add-ons
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
+Map.prototype.addMarker = function(annotation) {
+	this.mapView.addAnnotation(annotation);
+}
+
+Map.prototype.removeMarker = function(annotation) {
+	this.mapView.removeAnnotation(annotation);
+}
+
 Map.prototype.addDestinationRoute = function(route) {
 	this.mapView.addRoute(route);
 }
@@ -73,6 +91,10 @@ Map.prototype.removeDestinationRoute = function(route) {
  *  Getters
  *
  * * * * * * * * * * * * * * * * * * * * */
+
+ Map.prototype.getMapView = function() {
+	return this.mapView;
+}
 
  Map.prototype.getCurrentLocation = function() {
  	return {'lat': this.currentLat, 'lng': this.currentLong};

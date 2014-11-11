@@ -63,8 +63,25 @@ Destination.prototype.addRouteToMap = function(steps) {
 	if (this.current_route) {
 		this.mainMap.removeDestinationRoute(this.current_route);	
 	} 
-	this.current_route = MapModule.createRoute({points: steps['steps'], color: 'blue', width: 3});
+	this.current_route = MapModule.createRoute({points: steps['steps'], 
+												color: constants.routeColor, 
+												width: constants.routeWidth});
+	this.calculateNewDelta(steps['steps']);
 	this.mainMap.addDestinationRoute(this.current_route);
+}
+
+Destination.prototype.calculateNewDelta = function(steps) {
+	// http://stackoverflow.com/questions/10776516/centering-map-around-multiple-points-annotations-on-the-map-titanium-mobile
+	var end_location = steps[steps.length-1];
+	var ltDiff = Math.abs(end_location.latitude - this.current_lat);
+	var lgDiff = Math.abs(end_location.longitude - this.current_long);
+	var delta = ltDiff > lgDiff ? ltDiff: lgDiff;
+	Ti.API.info("Delta");
+	Ti.API.info(delta);
+	Ti.API.info(delta*constants.deltaMultiplier);
+	mainMap.changeDelta((end_location.latitude + this.current_lat)/2,
+						(end_location.longitude + this.current_long)/2,
+						delta*constants.deltaMultiplier);
 }
 
 module.exports = Destination;
