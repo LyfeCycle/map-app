@@ -59,7 +59,7 @@ Destination.prototype.parseJSONtoRoute = function(json) {
 
 Destination.prototype.addRouteToMap = function(steps) {
 	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
-	Ti.API.info(this.current_route);
+	//if (steps.isE)
 	if (this.current_route) {
 		this.mainMap.removeDestinationRoute(this.current_route);	
 	} 

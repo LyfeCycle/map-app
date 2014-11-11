@@ -27,6 +27,7 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.option_button = option_button;
 	this.nav_button = nav_bar.getNavButton();
 	this.nav_text = nav_bar.getTextField();
+	this.nav_cancel = nav_bar.getCancelButton();
 
 	// Controllers
 	this.destination = new Destination(this.mainMap);
@@ -97,6 +98,13 @@ Events.prototype.searchNav = function() {
 	}
 }
 
+Events.prototype.cancelNav = function() {
+	var destinationText = this.nav_text.value;
+	if (destinationText != "") {
+		this.nav_text.value = "";
+	}
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  All event listeners should go in here
@@ -129,6 +137,10 @@ Events.prototype.addEventListeners = function() {
 	self.nav_button.addEventListener('click', function() {
 		self.searchNav();
 	});
+
+	self.nav_cancel.addEventListener('click', function() {
+		self.cancelNav();
+	})
 }
 
 module.exports = Events;

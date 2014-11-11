@@ -7,4 +7,4 @@ module.exports.destinationFailMessage = 'Unfortunately, we couldn\'t find that r
 module.exports.timeoutReq = 5000;
 module.exports.routeColor = 'blue';
 module.exports.routeWidth = 4;
-module.exports.deltaMultiplier = 1.2;
+module.exports.deltaMultiplier = 1.4;
