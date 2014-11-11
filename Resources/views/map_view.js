@@ -7,8 +7,8 @@ var constants = require('./constants');
 
 function Map(startLat, startLong, startTime) {
 
-	this.startLat = 42.35141754150391, 
-    this.startLong = -71.12548828125,
+	this.startLat = 42.3520314, 
+    this.startLong = -71.1255678,
     this.startTime = 0,
     this.delta = 0.005,
     this.currentLat = startLat,

@@ -47,6 +47,7 @@ Annotation.prototype.removeDestinationLocationAnnotation = function() {
 	this.mainMap.removeMarker(this.destinationLocationAnnotation);
 }
 
+// This is the do-all function that will run all the automated helpers
 Annotation.prototype.addAnnotations = function(c_lat, c_lng, c_title, d_lat, d_lng, d_title, d_subtitle) {
 	if (this.currentLocationAnnotation) {
 		this.removeCurrentLocationAnnotation();

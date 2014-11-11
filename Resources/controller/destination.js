@@ -13,12 +13,13 @@ function Destination(mainMap) {
 
 // Parent function that will call helpers, but ultimately add a route from the input destination
 // and project this on a map
-Destination.prototype.addDestinationToMap = function(current_lat, current_long, destination) {
+Destination.prototype.addDestinationToMap = function(destination) {
 
 	// Add the current variables to the object itself
 	var self = this;
-	this.current_lat = current_lat;
-	this.current_long = current_long;
+	var location = this.mainMap.getCurrentLocation();
+	this.current_lat = location.lat;
+	this.current_long = location.lng;
 	this.destination_point = destination;
 
 	// Now, send the request and then perform the proper actions

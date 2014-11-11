@@ -94,7 +94,7 @@ Events.prototype.searchNav = function() {
 		alert("Please enter a destination!")
 	} else {
 		var currentLocation = mainMap.getCurrentLocation();
-		this.destination.addDestinationToMap(currentLocation.lat, currentLocation.lng, destinationText);
+		this.destination.addDestinationToMap(destinationText);
 	}
 }
 
