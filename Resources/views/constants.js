@@ -50,6 +50,10 @@ module.exports.navButtonLeftSpace = 5;
 module.exports.navLeft = (module.exports.deviceWidth - 
 	(module.exports.navButtonWidth + module.exports.navWidth + module.exports.navButtonLeftSpace))/2;
 module.exports.navButtonImage = 'images/mag_glass.png';
+module.exports.navCancelImage = 'images/cancel.png';
+module.exports.navCancelWidth = 20;
+module.exports.navCancelHeight = module.exports.navCancelWidth;
+module.exports.navCancelWidthBuffer = 10;
 
 
 

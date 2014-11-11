@@ -16,7 +16,7 @@ Annotation.prototype.addCurrentLocationAnnotation = function(lat, lng, title) {
 		pincolor: MapModule.ANNOTATION_PURPLE,
 		animate: true
 	});
-	this.mainMap.addMarker(this.currentLocationAnnotation);
+	this.mainMap.addAnnotation(this.currentLocationAnnotation);
 }
 
 Annotation.prototype.getCurrentLocationAnnotation = function() {
@@ -24,7 +24,7 @@ Annotation.prototype.getCurrentLocationAnnotation = function() {
 }
 
 Annotation.prototype.removeCurrentLocationAnnotation = function() {
-	this.mainMap.removeMarker(this.currentLocationAnnotation);
+	this.mainMap.removeAnnotation(this.currentLocationAnnotation);
 }
 
 Annotation.prototype.addDestinationLocationAnnotation = function(lat, lng, title, subtitle) {
@@ -36,7 +36,7 @@ Annotation.prototype.addDestinationLocationAnnotation = function(lat, lng, title
 		pincolor: MapModule.ANNOTATION_PURPLE,
 		animate: true
 	});
-	this.mainMap.addMarker(this.destinationLocationAnnotation);
+	this.mainMap.addAnnotation(this.destinationLocationAnnotation);
 }
 
 Annotation.prototype.getDestinationLocationAnnotation = function() {
@@ -44,7 +44,19 @@ Annotation.prototype.getDestinationLocationAnnotation = function() {
 }
 
 Annotation.prototype.removeDestinationLocationAnnotation = function() {
-	this.mainMap.removeMarker(this.destinationLocationAnnotation);
+	this.mainMap.removeAnnotation(this.destinationLocationAnnotation);
 }
+
+// This is the do-all function that will run all the automated helpers
+Annotation.prototype.addAnnotations = function(c_lat, c_lng, c_title, d_lat, d_lng, d_title, d_subtitle) {
+	if (this.currentLocationAnnotation) {
+		this.removeCurrentLocationAnnotation();
+	}
+	if (this.destinationLocationAnnotation) {
+		this.removeDestinationLocationAnnotation();
+	}
+	this.addCurrentLocationAnnotation(c_lat, c_lng, c_title);
+	this.addDestinationLocationAnnotation(d_lat, d_lng, d_title, d_subtitle);
+} 
 
 module.exports = Annotation;

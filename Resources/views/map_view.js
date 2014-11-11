@@ -7,8 +7,8 @@ var constants = require('./constants');
 
 function Map(startLat, startLong, startTime) {
 
-	this.startLat = 42.35141754150391, 
-    this.startLong = -71.12548828125,
+	this.startLat = 42.3520314, 
+    this.startLong = -71.1255678,
     this.startTime = 0,
     this.delta = 0.005,
     this.currentLat = startLat,
@@ -51,7 +51,6 @@ Map.prototype.updateValues = function(lat, lon, time) {
             longitudeDelta:this.delta
         };
     this.mapView.setLocation(region);
-    //this.mapView.removeAnnotation
 }
 
 Map.prototype.changeDelta = function(lat, lng, delta) {
@@ -70,12 +69,20 @@ Map.prototype.changeDelta = function(lat, lng, delta) {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-Map.prototype.addMarker = function(annotation) {
+Map.prototype.addAnnotation = function(annotation) {
 	this.mapView.addAnnotation(annotation);
 }
 
-Map.prototype.removeMarker = function(annotation) {
+Map.prototype.removeAnnotation = function(annotation) {
 	this.mapView.removeAnnotation(annotation);
+}
+
+Map.prototype.addMarker = function(marker) {
+	this.mapView.addAnnotation(marker);
+}
+
+Map.prototype.removeMarker = function(marker) {
+	this.mapView.removeAnnotation(marker);
 }
 
 Map.prototype.addDestinationRoute = function(route) {
