@@ -69,12 +69,20 @@ Map.prototype.changeDelta = function(lat, lng, delta) {
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-Map.prototype.addMarker = function(annotation) {
+Map.prototype.addAnnotation = function(annotation) {
 	this.mapView.addAnnotation(annotation);
 }
 
-Map.prototype.removeMarker = function(annotation) {
+Map.prototype.removeAnnotation = function(annotation) {
 	this.mapView.removeAnnotation(annotation);
+}
+
+Map.prototype.addMarker = function(marker) {
+	this.mapView.addAnnotation(marker);
+}
+
+Map.prototype.removeMarker = function(marker) {
+	this.mapView.removeAnnotation(marker);
 }
 
 Map.prototype.addDestinationRoute = function(route) {

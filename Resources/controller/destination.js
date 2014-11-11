@@ -63,7 +63,6 @@ Destination.prototype.parseJSONtoRoute = function(json, end_destination_text) {
 		alert("Could not get location!");
 		return {};
 	}
-	
 }
 
 Destination.prototype.addRouteToMap = function(steps) {

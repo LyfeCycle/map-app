@@ -12,6 +12,7 @@ var corner_tab = require('views/corner_tab');
 var MenuBar = require('views/bottom_menu');
 var open_button = require('views/corner_tab');
 var Events = require('controller/events');
+var Markers = require('controller/markers');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
@@ -78,8 +79,7 @@ var nav_view = nav_bar.getNavBar();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
- *  Add event listeners
- *  THIS MIGHT HAVE TO BE CHANGED
+ *  Add controllers
  *
  * * * * * * * * * * * * * * * * * * * * */
 
@@ -91,6 +91,8 @@ var nav_view = nav_bar.getNavBar();
                          bottom_menu.getOptionButton(),
                          nav_bar
                          );
+ var markers = new Markers(mainMap);
+ markers.retrieveAndAddMarkers();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
