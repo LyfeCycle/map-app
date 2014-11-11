@@ -64,6 +64,10 @@ Map.prototype.addDestinationRoute = function(route) {
 	this.mapView.addRoute(route);
 }
 
+Map.prototype.removeDestinationRoute = function(route) {
+	this.mapView.removeRoute(route);
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  Getters

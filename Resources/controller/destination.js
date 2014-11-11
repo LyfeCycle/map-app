@@ -1,21 +1,29 @@
 var constants = require('./controller_constants');
 var MapModule = require('ti.map');
 
-function Destination(mainMap, current_lat, current_long, destination) {
+function Destination(mainMap) {
 	this.mainMap = mainMap;
-	this.current_lat = current_lat;
-	this.current_long = current_long;
-	this.destination_point = destination;
-	this.addDestinationToMap();
+	this.current_route;
+	this.current_lat;
+	this.current_long;
+	this.destination_point;
 }
 
 // Parent function that will call helpers, but ultimately add a route from the input destination
 // and project this on a map
-Destination.prototype.addDestinationToMap = function() {
+Destination.prototype.addDestinationToMap = function(current_lat, current_long, destination) {
+
+	// Add the current variables to the object itself
 	var self = this;
+	this.current_lat = current_lat;
+	this.current_long = current_long;
+	this.destination_point = destination;
+
+	// Now, send the request and then perform the proper actions
 	var rURL =  constants.startReq + 
-				'42 Gardner St, Allston MA' +// + this.current_location + 
-				'&destination=49 Pratt St, Allston MA' +// + this.destination_point +
+				this.current_lat + ',' + this.current_long + //'42 Gardner St, Allston MA' +// + this.current_location + 
+				//'&destination=49 Pratt St, Allston MA' +
+				'&destination=' + this.destination_point + //'&destination=49 Pratt St, Allston MA' +// + this.destination_point +
 				constants.endReq;	  
 
 	var client = Ti.Network.createHTTPClient({
@@ -51,7 +59,12 @@ Destination.prototype.parseJSONtoRoute = function(json) {
 
 Destination.prototype.addRouteToMap = function(steps) {
 	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
-	this.mainMap.addDestinationRoute(MapModule.createRoute({points: steps['steps'], color: 'blue', width: 3}));
+	Ti.API.info(this.current_route);
+	if (this.current_route) {
+		this.mainMap.removeDestinationRoute(this.current_route);	
+	} 
+	this.current_route = MapModule.createRoute({points: steps['steps'], color: 'blue', width: 3});
+	this.mainMap.addDestinationRoute(this.current_route);
 }
 
 module.exports = Destination;

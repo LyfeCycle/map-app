@@ -28,6 +28,9 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.nav_button = nav_bar.getNavButton();
 	this.nav_text = nav_bar.getTextField();
 
+	// Controllers
+	this.destination = new Destination(this.mainMap);
+
 	// Noe actually add events to these views
 	this.addEventListeners();
 }
@@ -90,8 +93,7 @@ Events.prototype.searchNav = function() {
 		alert("Please enter a destination!")
 	} else {
 		var currentLocation = mainMap.getCurrentLocation();
-		var destination = new Destination(this.mainMap, currentLocation.lat, currentLocation.lng, 0);
-		destination.addDestinationToMap();
+		this.destination.addDestinationToMap(currentLocation.lat, currentLocation.lng, destinationText);
 	}
 }
 
