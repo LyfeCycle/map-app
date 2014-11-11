@@ -30,6 +30,7 @@ var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.def
 var bottom_menu = new MenuBar();
 var option_view = new OptionView();
 var nav_bar = new NavBar();
+var coordinates = [];
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -49,6 +50,8 @@ if (Ti.Geolocation.locationServicesEnabled) {
             alert('Couldn\'t get location');
 
         } else {
+            coordinates.push(e.coords.latitude);
+            coordinates.push(e.coords.longitude);
             mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
         }
     });
@@ -64,6 +67,78 @@ if (Ti.Geolocation.locationServicesEnabled) {
     });
 } else {
     alert('Please enable location services');
+}
+
+/* * * * * * * * * * * * * * * * * * * * *
+ * 
+ *  Crash_Detect
+ *
+ * * * * * * * * * * * * * * * * * * * * */
+
+// Crash Detection using Core Motion
+var CoreMotion = require('ti.coremotion');
+
+if (CoreMotion.isAccelerometerAvailable()) {
+    // Start the service
+    accelerometer_state = true;
+    // Send data at 1 s (1000 ms) intervals
+    CoreMotion.setAccelerometerUpdateInterval(1000);
+    // Start with a callback
+    CoreMotion.startAccelerometerUpdates(updateAccelData);
+}
+
+var accelX = accelY = accelZ = 0;
+var lastX = lastY = lastZ = 0;
+var CRASH_THRESHOLD = 2;
+
+
+function updateAccelData (e) {
+    
+    if (e.success) {     
+        var data = e.acceleration;
+        if (Math.abs(lastX - data.x) > CRASH_THRESHOLD || Math.abs(lastY - data.y) > CRASH_THRESHOLD || Math.abs(lastY - data.y) > CRASH_THRESHOLD) {
+            accelX++;
+            alert("Crash detected!");
+            var emailDialog = Ti.UI.createEmailDialog();
+            emailDialog.subject = "Crash Detected for Alex Wong";
+            emailDialog.toRecipients = ['contact@lyfecycle.me'];
+            emailDialog.messageBody = '<b>Alex Wong may have been in an accident at location</b>' + coordinates;
+            emailDialog.open();
+            ///// Upload point to api
+            var http = Ti.Network.createHTTPClient();
+            var post_data = 'name=AlexCrashed&latitude=' + coordinates[0] + '&longitude=' + coordinates[1],
+                headers = {
+                    host: 'lyfecycle-api.herokuapp.com',
+                    port: 80,
+                    method: 'POST',
+                    path: '/locations',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+            var request = http.request(headers, function(response) {
+                response.on('data', function(d) {
+                    console.log(d);
+                });
+            });
+            request.on('error', function(err) {
+                console.log("An error ocurred!");
+            });
+            request.write(post_data);
+
+            request.end();
+
+        }
+        lastX = data.x;
+        lastY = data.y;
+        lastZ = data.z;
+
+        data = e.attitude;
+        
+    } else {
+        if (e.error) Ti.API.error(e.error);
+    }
 }
 
 /* * * * * * * * * * * * * * * * * * * * *

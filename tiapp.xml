@@ -59,6 +59,7 @@
     <modules>
         <module platform="iphone">ti.map</module>
         <module platform="iphone">bencoding.map</module>
+        <module platform="iphone">ti.coremotion</module>
     </modules>
     <deployment-targets>
         <target device="android">false</target>
