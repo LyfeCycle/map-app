@@ -1,5 +1,6 @@
 var constants = require('./controller_constants');
 var MapModule = require('ti.map');
+var Annotation = require('controller/annotations');
 
 function Destination(mainMap) {
 	this.mainMap = mainMap;
@@ -7,6 +8,7 @@ function Destination(mainMap) {
 	this.current_lat;
 	this.current_long;
 	this.destination_point;
+	this.annotations = new Annotation(this.mainMap);
 }
 
 // Parent function that will call helpers, but ultimately add a route from the input destination
@@ -28,7 +30,7 @@ Destination.prototype.addDestinationToMap = function(current_lat, current_long, 
 
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
-		 self.addRouteToMap(self.parseJSONtoRoute(this.responseText));
+		 self.addRouteToMap(self.parseJSONtoRoute(this.responseText, this.destination_point));
 		},
 		onerror : function(e) {
 		 alert(constants.destinationFailMessage);
@@ -41,7 +43,7 @@ Destination.prototype.addDestinationToMap = function(current_lat, current_long, 
 	client.send();
 }
 
-Destination.prototype.parseJSONtoRoute = function(json) {
+Destination.prototype.parseJSONtoRoute = function(json, end_destination_text) {
 	var jsonParsed = JSON.parse(json);
 	try {
 		var all_legs = jsonParsed["routes"][0]['legs'];
@@ -55,7 +57,7 @@ Destination.prototype.parseJSONtoRoute = function(json) {
 						     'distance': step.distance['text'], 
 						     'duration': step.duration['text']});
 		}
-		return {'steps':steps, 'meta':steps_meta};
+		return {'steps':steps, 'meta':steps_meta, 'end_destination_text': end_destination_text};
 	} catch(err) {
 		alert("Could not get location!");
 		return {};
@@ -73,6 +75,7 @@ Destination.prototype.addRouteToMap = function(steps) {
 													color: constants.routeColor, 
 													width: constants.routeWidth});
 		this.calculateNewDelta(steps['steps']);
+		this.addDestinationAnnotations(steps);
 		this.mainMap.addDestinationRoute(this.current_route);
 	}
 	
@@ -84,12 +87,21 @@ Destination.prototype.calculateNewDelta = function(steps) {
 	var ltDiff = Math.abs(end_location.latitude - this.current_lat);
 	var lgDiff = Math.abs(end_location.longitude - this.current_long);
 	var delta = ltDiff > lgDiff ? ltDiff: lgDiff;
-	Ti.API.info("Delta");
-	Ti.API.info(delta);
-	Ti.API.info(delta*constants.deltaMultiplier);
 	mainMap.changeDelta((end_location.latitude + this.current_lat)/2,
 						(end_location.longitude + this.current_long)/2,
 						delta*constants.deltaMultiplier);
+}
+
+Destination.prototype.addDestinationAnnotations = function(steps) {
+	var end_location = steps['steps'][steps['steps'].length-1];
+	this.annotations.addAnnotations(this.current_lat, 
+									this.current_long, 
+									"Current Location", 
+									end_location.latitude,
+									end_location.longitude,
+									"Destination",
+									steps['end_destination_text']
+									);
 }
 
 module.exports = Destination;

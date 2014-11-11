@@ -51,7 +51,6 @@ Map.prototype.updateValues = function(lat, lon, time) {
             longitudeDelta:this.delta
         };
     this.mapView.setLocation(region);
-    //this.mapView.removeAnnotation
 }
 
 Map.prototype.changeDelta = function(lat, lng, delta) {

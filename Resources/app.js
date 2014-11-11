@@ -15,7 +15,6 @@ var Events = require('controller/events');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
-var Annotation = require('controller/annotations');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
