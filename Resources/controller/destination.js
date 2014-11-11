@@ -43,31 +43,39 @@ Destination.prototype.addDestinationToMap = function(current_lat, current_long, 
 
 Destination.prototype.parseJSONtoRoute = function(json) {
 	var jsonParsed = JSON.parse(json);
-	var all_legs = jsonParsed["routes"][0]['legs'];
-	var first_leg_steps = all_legs[0]['steps'];
-	var steps_meta = [], steps = [];
-	for (i in first_leg_steps) {
-		var step = first_leg_steps[i];
-		steps.push({'latitude': step['end_location']['lat'],
-					'longitude': step['end_location']['lng']});
-		steps_meta.push({'text': step['html_instructions'], 
-					     'distance': step.distance['text'], 
-					     'duration': step.duration['text']});
+	try {
+		var all_legs = jsonParsed["routes"][0]['legs'];
+		var first_leg_steps = all_legs[0]['steps'];
+		var steps_meta = [], steps = [];
+		for (i in first_leg_steps) {
+			var step = first_leg_steps[i];
+			steps.push({'latitude': step['end_location']['lat'],
+						'longitude': step['end_location']['lng']});
+			steps_meta.push({'text': step['html_instructions'], 
+						     'distance': step.distance['text'], 
+						     'duration': step.duration['text']});
+		}
+		return {'steps':steps, 'meta':steps_meta};
+	} catch(err) {
+		alert("Could not get location!");
+		return {};
 	}
-	return {'steps':steps, 'meta':steps_meta};
+	
 }
 
 Destination.prototype.addRouteToMap = function(steps) {
 	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
-	//if (steps.isE)
-	if (this.current_route) {
-		this.mainMap.removeDestinationRoute(this.current_route);	
-	} 
-	this.current_route = MapModule.createRoute({points: steps['steps'], 
-												color: constants.routeColor, 
-												width: constants.routeWidth});
-	this.calculateNewDelta(steps['steps']);
-	this.mainMap.addDestinationRoute(this.current_route);
+	if(JSON.stringify(steps) != '{}') {
+		if (this.current_route) {
+			this.mainMap.removeDestinationRoute(this.current_route);	
+		} 
+		this.current_route = MapModule.createRoute({points: steps['steps'], 
+													color: constants.routeColor, 
+													width: constants.routeWidth});
+		this.calculateNewDelta(steps['steps']);
+		this.mainMap.addDestinationRoute(this.current_route);
+	}
+	
 }
 
 Destination.prototype.calculateNewDelta = function(steps) {

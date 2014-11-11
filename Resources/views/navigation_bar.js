@@ -51,8 +51,8 @@ NavigationBar.prototype.createCancelButton = function() {
 	Ti.API.info('cancel button');
 	return Ti.UI.createImageView({
 		top: (constants.navHeight - constants.navCancelHeight)/2,
-		left: constants.navWidth - constants.navCancelWidth + constants.navCancelWidthBuffer/2,
-		height: constants.navHeight,
+		left: constants.navWidth - constants.navCancelWidth - constants.navCancelWidthBuffer/2,
+		height: constants.navCancelWidth,
 		width: constants.navCancelWidth,
 		image: constants.navCancelImage,
 		zIndex: 10
