@@ -1,6 +1,7 @@
 var constants = require('../views/constants');
 var animations = require('../views/animations');
 var Destination = require('./destination');
+var Annotation = require('controller/annotations');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -32,7 +33,8 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.nav_bar_view = nav_bar.getNavBar();
 
 	// Controllers
-	this.destination = new Destination(this.mainMap);
+	this.annotations = new Annotation(this.mainMap);
+	this.destination = new Destination(this.mainMap, this.annotations);
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -109,6 +111,8 @@ Events.prototype.cancelNav = function() {
 		this.nav_bar_view.animate(animations.closeNavBar());
 		// animate openNav in
 		this.nav_open.animate(animations.openNavOpenButton());
+		// Cancel Navigation
+		this.destination.removeRouteFromMap();
 	}
 }
 

@@ -1,14 +1,17 @@
 var constants = require('./controller_constants');
 var MapModule = require('ti.map');
-var Annotation = require('controller/annotations');
 
-function Destination(mainMap) {
+function Destination(mainMap, annotations) {
 	this.mainMap = mainMap;
-	this.current_route;
+	// The currents routes differ by form and functionality
+	//	- Polyline is for placement on the map. This allows curves and such
+	//	- Nav has all waypoints given back from Directions API
+	this.current_route_polyline;
+	this.current_route_nav;
 	this.current_lat;
 	this.current_long;
 	this.destination_point;
-	this.annotations = new Annotation(this.mainMap);
+	this.annotations = annotations;
 }
 
 // Parent function that will call helpers, but ultimately add a route from the input destination
@@ -44,42 +47,49 @@ Destination.prototype.addDestinationToMap = function(destination) {
 	client.send();
 }
 
+// This looks a little messy. I'd like to clean this up
 Destination.prototype.parseJSONtoRoute = function(json, end_destination_text) {
 	var jsonParsed = JSON.parse(json);
 	try {
-		Ti.API.info("Parse JSON");
-		Ti.API.info(jsonParsed);
 		var all_legs = jsonParsed["routes"][0]['legs'];
 		var first_leg_steps = all_legs[0]['steps'];
-		var steps_meta = [], steps = [], polyline_steps = [];
+		var steps = [], polyline_steps = [];
 		for (i in first_leg_steps) {
 			var step = first_leg_steps[i];
 			this.decodePolyline(step['polyline']['points'], polyline_steps);
 			steps.push({'latitude': step['end_location']['lat'],
-						'longitude': step['end_location']['lng']});
-			steps_meta.push({'text': step['html_instructions'], 
-						     'distance': step.distance['text'], 
-						     'duration': step.duration['text']});
+						'longitude': step['end_location']['lng'],
+						'text': step['html_instructions'], 
+						'distance': step.distance['text'], 
+						'duration': step.duration['text']});
 		}
-		return {'steps':steps, 'meta':steps_meta, 'end_destination_text': end_destination_text, 'polyline_route': polyline_steps};
+		return {'steps':steps, 'end_destination_text': end_destination_text, 'polyline_route': polyline_steps};
 	} catch(err) {
 		alert("Could not get location!");
 		return {};
 	}
 }
 
+Destination.prototype.removeRouteFromMap = function() {
+	if (this.current_route_polyline) {
+		this.mainMap.removeDestinationRoute(this.current_route_polyline);
+		this.current_route_nav = undefined;
+		this.current_route_polyline = undefined;	
+	} 
+	this.annotations.removeAnnotations();
+}
+
 Destination.prototype.addRouteToMap = function(steps_obj) {
 	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
 	if(JSON.stringify(steps_obj) != '{}') {
-		if (this.current_route) {
-			this.mainMap.removeDestinationRoute(this.current_route);	
-		} 
-		this.current_route = MapModule.createRoute({points: steps_obj['polyline_route'],//points: steps_obj['steps'], 
+		this.removeRouteFromMap();
+		this.current_route_polyline = MapModule.createRoute({points: steps_obj['polyline_route'],//points: steps_obj['steps'], 
 													color: constants.routeColor, 
 													width: constants.routeWidth});
+		this.current_route_nav = steps_obj['steps'];
 		this.calculateNewDelta(steps_obj['steps']);
 		this.addDestinationAnnotations(steps_obj);
-		this.mainMap.addDestinationRoute(this.current_route);
+		this.mainMap.addDestinationRoute(this.current_route_polyline);
 	}
 	
 }
