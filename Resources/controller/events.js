@@ -28,6 +28,8 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.nav_button = nav_bar.getNavButton();
 	this.nav_text = nav_bar.getTextField();
 	this.nav_cancel = nav_bar.getCancelButton();
+	this.nav_open = nav_bar.getOpenButton();
+	this.nav_bar_view = nav_bar.getNavBar();
 
 	// Controllers
 	this.destination = new Destination(this.mainMap);
@@ -102,7 +104,19 @@ Events.prototype.cancelNav = function() {
 	var destinationText = this.nav_text.value;
 	if (destinationText != "") {
 		this.nav_text.value = "";
+	} else {
+		// Animate nav out
+		this.nav_bar_view.animate(animations.closeNavBar());
+		// animate openNav in
+		this.nav_open.animate(animations.openNavOpenButton());
 	}
+}
+
+Events.prototype.openNav = function() {
+	// Animate nav in
+	this.nav_bar_view.animate(animations.openNavBar());
+	// animate openNav out
+	this.nav_open.animate(animations.closeNavOpenButton());
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -140,7 +154,11 @@ Events.prototype.addEventListeners = function() {
 
 	self.nav_cancel.addEventListener('click', function() {
 		self.cancelNav();
-	})
+	});
+
+	self.nav_open.addEventListener('click', function() {
+		self.openNav();
+	});
 }
 
 module.exports = Events;

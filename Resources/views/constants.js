@@ -47,6 +47,7 @@ module.exports.navHeight = 35;
 module.exports.navButtonWidth = 35;
 module.exports.navTop = 30;
 module.exports.navButtonLeftSpace = 5;
+module.exports.navButtonLeft = module.exports.navWidth + module.exports.navButtonLeftSpace;
 module.exports.navLeft = (module.exports.deviceWidth - 
 	(module.exports.navButtonWidth + module.exports.navWidth + module.exports.navButtonLeftSpace))/2;
 module.exports.navButtonImage = 'images/mag_glass.png';
@@ -54,6 +55,14 @@ module.exports.navCancelImage = 'images/cancel.png';
 module.exports.navCancelWidth = 20;
 module.exports.navCancelHeight = module.exports.navCancelWidth;
 module.exports.navCancelWidthBuffer = 10;
+module.exports.navCancelLeft = module.exports.navWidth - module.exports.navCancelWidth - module.exports.navCancelWidthBuffer/2;
+module.exports.navCancelTop = (module.exports.navHeight - module.exports.navCancelHeight)/2;
+
+// Constants for the nav open button
+module.exports.navOpenButtonHeight = module.exports.navHeight;
+module.exports.navOpenButtonWidth = module.exports.navOpenButtonHeight*2.2;
+module.exports.navOpenButtonLeft = -1*module.exports.navOpenButtonWidth/2;
+module.exports.navOpenButtonLeftWhenClosed = module.exports.navOpenButtonLeft + -1*module.exports.navOpenButtonWidth - 10;
 
 
 

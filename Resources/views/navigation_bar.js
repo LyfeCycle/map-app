@@ -1,6 +1,7 @@
 var constants = require('./constants');
 
 function NavigationBar() {
+	this.open_button = this.createOpenButton();
 	this.nav_button = this.createNavButton();
 	this.nav_text = this.createTextField();
 	this.cancel_button = this.createCancelButton();
@@ -39,7 +40,7 @@ NavigationBar.prototype.createNavBar = function() {
 
 NavigationBar.prototype.createNavButton = function() {
 	return Ti.UI.createImageView({
-		left: constants.navWidth + constants.navButtonLeftSpace,
+		left: constants.navButtonLeft,
 		top: 0,
 		height: constants.navHeight,
 		width: constants.navButtonWidth,
@@ -50,13 +51,36 @@ NavigationBar.prototype.createNavButton = function() {
 NavigationBar.prototype.createCancelButton = function() {
 	Ti.API.info('cancel button');
 	return Ti.UI.createImageView({
-		top: (constants.navHeight - constants.navCancelHeight)/2,
-		left: constants.navWidth - constants.navCancelWidth - constants.navCancelWidthBuffer/2,
+		top: constants.navCancelTop,
+		left: constants.navCancelLeft,
 		height: constants.navCancelWidth,
 		width: constants.navCancelWidth,
 		image: constants.navCancelImage,
 		zIndex: 10
 	});
+}
+
+NavigationBar.prototype.createOpenButton = function() {
+	var open_view_rounded = Ti.UI.createView({
+		top: constants.navTop,
+		left: constants.navOpenButtonLeftWhenClosed,
+		height: constants.navOpenButtonHeight,
+		width: constants.navOpenButtonWidth,
+		backgroundColor: constants.green,
+		borderRadius: constants.navOpenButtonHeight/2
+	});
+
+	var arrow = Ti.UI.createLabel({
+		text: '>',
+		font:{fontSize:20,fontFamily: constants.labelFontFamily, fontWeight:'bold'},
+		color: 'white',
+		left: constants.navOpenButtonWidth*0.75,
+		width: 'auto',
+		height: 'auto'
+	});
+
+	open_view_rounded.add(arrow);
+	return open_view_rounded;
 }
 
 NavigationBar.prototype.getNavBar = function() {
@@ -73,6 +97,10 @@ NavigationBar.prototype.getTextField = function() {
 
 NavigationBar.prototype.getCancelButton = function() {
 	return this.cancel_button;
+}
+
+NavigationBar.prototype.getOpenButton = function() {
+	return this.open_button;
 }
 
 module.exports = NavigationBar;
