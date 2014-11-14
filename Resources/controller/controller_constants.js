@@ -8,3 +8,6 @@ module.exports.timeoutReq = 8000;
 module.exports.routeColor = 'blue';
 module.exports.routeWidth = 4;
 module.exports.deltaMultiplier = 1.4;
+
+// 
+module.exports.warningIcon = 'images/warning_icon.png'
