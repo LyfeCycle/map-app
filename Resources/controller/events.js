@@ -11,7 +11,7 @@ var Annotation = require('controller/annotations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar) {
+function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -31,6 +31,9 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.nav_cancel = nav_bar.getCancelButton();
 	this.nav_open = nav_bar.getOpenButton();
 	this.nav_bar_view = nav_bar.getNavBar();
+	this.nav_dir_start_button = nav_dir.getStartButton();
+	this.nav_dir_banner = nav_dir.getNavBanner();
+	this.nav_dir_cancel_button = nav_dir.getCancelButton();
 
 	// Controllers
 	this.annotations = new Annotation(this.mainMap);
@@ -99,6 +102,7 @@ Events.prototype.searchNav = function() {
 	} else {
 		var currentLocation = mainMap.getCurrentLocation();
 		this.destination.addDestinationToMap(destinationText);
+		this.nav_dir_start_button.animate(animations.openNavDirStartButton());
 	}
 }
 
@@ -109,8 +113,11 @@ Events.prototype.cancelNav = function() {
 	} else {
 		// Animate nav out
 		this.nav_bar_view.animate(animations.closeNavBar());
-		// animate openNav in
 		this.nav_open.animate(animations.openNavOpenButton());
+		// animate openNav in
+		this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
+		this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
+		this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
 		// Cancel Navigation
 		this.destination.removeRouteFromMap();
 	}
@@ -121,6 +128,10 @@ Events.prototype.openNav = function() {
 	this.nav_bar_view.animate(animations.openNavBar());
 	// animate openNav out
 	this.nav_open.animate(animations.closeNavOpenButton());
+}
+
+Events.prototype.startNavigation = function() {
+	// Pass off to navigation controller
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -162,6 +173,10 @@ Events.prototype.addEventListeners = function() {
 
 	self.nav_open.addEventListener('click', function() {
 		self.openNav();
+	});
+
+	self.nav_dir_start_button.addEventListener('click', function() {
+		self.startNavigation();
 	});
 }
 

@@ -17,35 +17,58 @@ var closeBottomBar = function() {
 var closeNavBar = function() {
 	return Ti.UI.createAnimation({
 		left: (constants.navLeft + constants.navWidth + 10)*-1,
-		duration: 500
+		duration: 300
 	});
 }
 
 var openNavBar = function() {
 	return Ti.UI.createAnimation({
 		left: constants.navLeft,
-		duration: 500
-	});
-}
-
-var closeNavButton = function() {
-	return Ti.UI.createAnimation({
-		left: (constants.navButtonLeft + constants.navButtonWidth + 10)*-1,
-		duration: 500
+		duration: 300
 	});
 }
 
 var closeNavOpenButton = function() {
 	return Ti.UI.createAnimation({
 		left: constants.navOpenButtonLeftWhenClosed,
-		duration: 250
+		duration: 200
 	});
 }
 
 var openNavOpenButton = function() {
 	return Ti.UI.createAnimation({
 		left: constants.navOpenButtonLeft,
-		duration: 250
+		duration: 200
+	});
+}
+
+var openNavDirStartButton = function() {
+	return Ti.UI.createAnimation({
+		top: constants.startButtonTop,
+		duration: 200
+	});
+}
+
+var closeNavDirStartButton = function() {
+	return Ti.UI.createAnimation({
+		top: constants.startButtonTopWhenClosed,
+		duration: 1,
+		delay: 200
+	});
+}
+
+var fadeNavDirStartButton = function() {
+	return Ti.UI.createAnimation({
+		duration: 200,
+		opacity: 0
+	});
+}
+
+var solidNavDirStartButton = function() {
+	return Ti.UI.createAnimation({
+		duration: 10,
+		opacity: 1,
+		delay: 300
 	});
 }
 
@@ -55,6 +78,10 @@ module.exports.closeNavBar = closeNavBar;
 module.exports.openNavBar = openNavBar;
 module.exports.closeNavOpenButton = closeNavOpenButton;
 module.exports.openNavOpenButton = openNavOpenButton;
+module.exports.openNavDirStartButton = openNavDirStartButton;
+module.exports.closeNavDirStartButton = closeNavDirStartButton;
+module.exports.fadeNavDirStartButton = fadeNavDirStartButton;
+module.exports.solidNavDirStartButton = solidNavDirStartButton;
 
 
 

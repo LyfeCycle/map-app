@@ -64,5 +64,33 @@ module.exports.navOpenButtonWidth = module.exports.navOpenButtonHeight*2.2;
 module.exports.navOpenButtonLeft = -1*module.exports.navOpenButtonWidth/2;
 module.exports.navOpenButtonLeftWhenClosed = module.exports.navOpenButtonLeft + -1*module.exports.navOpenButtonWidth - 10;
 
+// Constants for Navigation Directions
+module.exports.startButtonWidth = 120;
+module.exports.startButtonHeight = module.exports.startButtonWidth*9/16;
+module.exports.startButtonText = "Start";
+module.exports.startButtonColor = module.exports.green;
+module.exports.startButtonTop = module.exports.navTop + module.exports.navHeight + 10;
+module.exports.startButtonTopWhenClosed = -module.exports.startButtonHeight - 5;
+module.exports.navBannerTop = 20;
+module.exports.navBannerHeight = 60;
+module.exports.navBannerColor = module.exports.green;
+module.exports.navBannerTopWhenClosed = -1*module.exports.navBannerHeight - 5;
+module.exports.navDirBuffer = 40;
+module.exports.navDirTextWidth = module.exports.deviceWidth - module.exports.navDirBuffer;
+module.exports.navDirCancelWidth = 30;
+module.exports.navDirCancelHeight = module.exports.navDirCancelWidth;
+module.exports.navDirCancelLeft = module.exports.deviceWidth - module.exports.navDirCancelWidth;
+module.exports.navDirCancelTop = module.exports.navBannerTop + (module.exports.navBannerHeight - module.exports.navDirCancelHeight)/2;
+
+
+
+
+
+
+
+
+
+
+
 
 

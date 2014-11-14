@@ -16,6 +16,7 @@ var Markers = require('controller/markers');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
+var NavDirView = require('views/nav_directions_view');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -30,6 +31,7 @@ var mainMap = new Map(constants.defaultLat, constants.defaultLong, constants.def
 var bottom_menu = new MenuBar();
 var option_view = new OptionView();
 var nav_bar = new NavBar();
+var nav_dir_view = new NavDirView();
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -76,7 +78,9 @@ var corner_tab_view = corner_tab.cornerTab();
 var bottom_menu_view = bottom_menu.getMenuBar();
 var map_view = mainMap.getMapView();
 var nav_view = nav_bar.getNavBar();
-var nav_open_view = nav_bar.getOpenButton();
+var nav_open_bar_view = nav_bar.getOpenButton();
+var nav_dir_banner = nav_dir_view.getNavBanner();
+var nav_dir_start = nav_dir_view.getStartButton();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -90,7 +94,8 @@ var nav_open_view = nav_bar.getOpenButton();
                          bottom_menu.getSocialButton(),
                          bottom_menu.getTimeButton(),
                          bottom_menu.getOptionButton(),
-                         nav_bar
+                         nav_bar,
+                         nav_dir_view
                          );
  var markers = new Markers(mainMap);
  markers.retrieveAndAddMarkers();
@@ -105,7 +110,9 @@ win.add(map_view);
 win.add(bottom_menu_view);
 win.add(corner_tab_view);
 win.add(nav_view);
-win.add(nav_open_view);
+win.add(nav_open_bar_view);
+win.add(nav_dir_banner);
+win.add(nav_dir_start);
 //win.add(option_view.getOptionView());
 //win.add(bottom_menu.getBottomMenu());
 win.open();
