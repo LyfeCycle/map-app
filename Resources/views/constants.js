@@ -77,11 +77,11 @@ module.exports.navBannerHeight = 60;
 module.exports.navBannerColor = module.exports.green;
 module.exports.navBannerTopWhenClosed = -1*module.exports.navBannerHeight - 5;
 module.exports.navDirBuffer = 40;
-module.exports.navDirTextWidth = module.exports.deviceWidth - module.exports.navDirBuffer;
 module.exports.navDirCancelWidth = 30;
 module.exports.navDirCancelHeight = module.exports.navDirCancelWidth;
 module.exports.navDirCancelLeft = module.exports.deviceWidth - module.exports.navDirCancelWidth;
 module.exports.navDirCancelTop = (module.exports.navBannerHeight - module.exports.navDirCancelHeight)/2;
+module.exports.navDirTextWidth = module.exports.deviceWidth - module.exports.navDirCancelWidth*2;
 
 
 

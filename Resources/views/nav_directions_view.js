@@ -3,6 +3,7 @@ var constants = require('./constants');
 function NavigationDirectionsView() {
 	this.start_button = this.createStartButton();
 	this.navigation_text = this.createNavText();
+	this.navigation_sub_text = this.createNavSubText();
 	this.cancel_button = this.createNavCancelButton();
 	this.nav_banner = this.createNavBanner();
 }
@@ -51,9 +52,23 @@ NavigationDirectionsView.prototype.createNavCancelButton = function() {
 
 NavigationDirectionsView.prototype.createNavText = function() {
 	return Ti.UI.createLabel({
+		minimumFontSize: 14,
 		color: 'white',
-		font: {fontSize:22, fontFamily: constants.labelFontFamily },
-		width: constants.navDirTextWidth
+		font: {fontSize:25, fontFamily: constants.labelFontFamily },
+		width: constants.navDirTextWidth,
+		top: 3,
+		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+	});
+}
+
+NavigationDirectionsView.prototype.createNavSubText = function() {
+	return Ti.UI.createLabel({
+		minimumFontSize: 14,
+		color: 'white',
+		font: {fontSize:25, fontFamily: constants.labelFontFamily },
+		width: constants.navDirTextWidth,
+		bottom: 3,
+		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 	});
 }
 
@@ -66,6 +81,7 @@ NavigationDirectionsView.prototype.createNavBanner = function() {
 	});
 
 	background.add(this.navigation_text);
+	background.add(this.navigation_sub_text);
 	background.add(this.cancel_button);
 	return background;
 }
@@ -88,6 +104,10 @@ NavigationDirectionsView.prototype.getNavBanner = function() {
 
 NavigationDirectionsView.prototype.getNavText = function() {
 	return this.navigation_text;
+}
+
+NavigationDirectionsView.prototype.getNavSubText = function() {
+	return this.navigation_sub_text;
 }
 
 module.exports = NavigationDirectionsView;

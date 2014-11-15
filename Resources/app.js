@@ -5,18 +5,23 @@
  * * * * * * * * * * * * * * * * * * * * */
 
 var win = Titanium.UI.createWindow();
+
+// Views
 var Map = require('views/map_view');
 var TopBar = require('views/top_bar');
 var constants = require('views/constants');
 var corner_tab = require('views/corner_tab');
 var MenuBar = require('views/bottom_menu');
 var open_button = require('views/corner_tab');
-var Events = require('controller/events');
-var Markers = require('controller/markers');
 var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
 var NavDirView = require('views/nav_directions_view');
+
+// Controllers
+var Events = require('controller/events');
+var Markers = require('controller/markers');
+var NavDirections = require('controller/nav_directions');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -88,7 +93,9 @@ var nav_dir_start = nav_dir_view.getStartButton();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- var events = new Events(mainMap,
+ var directions = new NavDirections(nav_dir_view);
+ var events = new Events(directions,
+                         mainMap,
                          bottom_menu_view, 
                          corner_tab_view, 
                          bottom_menu.getSocialButton(),

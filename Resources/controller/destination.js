@@ -1,7 +1,7 @@
 var constants = require('./controller_constants');
 var MapModule = require('ti.map');
 
-function Destination(mainMap, annotations) {
+function Destination(mainMap, annotations, directions) {
 	this.mainMap = mainMap;
 	// The currents routes differ by form and functionality
 	//	- Polyline is for placement on the map. This allows curves and such
@@ -12,6 +12,7 @@ function Destination(mainMap, annotations) {
 	this.current_long;
 	this.destination_point;
 	this.annotations = annotations;
+	this.directions = directions;
 }
 
 // Parent function that will call helpers, but ultimately add a route from the input destination
@@ -89,6 +90,7 @@ Destination.prototype.addRouteToMap = function(steps_obj) {
 		this.current_route_nav = steps_obj['steps'];
 		this.calculateNewDelta(steps_obj['steps']);
 		this.addDestinationAnnotations(steps_obj);
+		this.directions.addNavigation(steps_obj['steps']);
 		this.mainMap.addDestinationRoute(this.current_route_polyline);
 	}
 	

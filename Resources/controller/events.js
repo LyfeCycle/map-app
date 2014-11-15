@@ -11,7 +11,7 @@ var Annotation = require('controller/annotations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir) {
+function Events(directions, mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -37,7 +37,8 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 
 	// Controllers
 	this.annotations = new Annotation(this.mainMap);
-	this.destination = new Destination(this.mainMap, this.annotations);
+	this.directions = directions;
+	this.destination = new Destination(this.mainMap, this.annotations, this.directions);
 
 	// Noe actually add events to these views
 	this.addEventListeners();
