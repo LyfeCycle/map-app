@@ -72,6 +72,20 @@ var solidNavDirStartButton = function() {
 	});
 }
 
+var openNavDirBanner = function() {
+	return Ti.UI.createAnimation({
+		top: constants.navBannerTop,
+		duration: 300
+	});
+}
+
+var closeNavDirBanner = function() {
+	return Ti.UI.createAnimation({
+		top: constants.navBannerTopWhenClosed,
+		duration: 300
+	});
+}
+
 module.exports.openBottomBar = openBottomBar;
 module.exports.closeBottomBar = closeBottomBar;
 module.exports.closeNavBar = closeNavBar;
@@ -82,6 +96,8 @@ module.exports.openNavDirStartButton = openNavDirStartButton;
 module.exports.closeNavDirStartButton = closeNavDirStartButton;
 module.exports.fadeNavDirStartButton = fadeNavDirStartButton;
 module.exports.solidNavDirStartButton = solidNavDirStartButton;
+module.exports.openNavDirBanner = openNavDirBanner;
+module.exports.closeNavDirBanner = closeNavDirBanner;
 
 
 

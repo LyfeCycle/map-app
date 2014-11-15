@@ -7,6 +7,7 @@ module.exports.labelFontFamily = 'Helvetica Neue';
 module.exports.deviceHeight = Titanium.Platform.displayCaps.platformHeight;
 module.exports.deviceWidth = Titanium.Platform.displayCaps.platformWidth;
 module.exports.topSpace = 0;
+module.exports.viewShadowOffset = 2;
 
 // Constants for the bottom bar
 module.exports.bottomSpace = 0;
@@ -66,7 +67,7 @@ module.exports.navOpenButtonLeftWhenClosed = module.exports.navOpenButtonLeft + 
 
 // Constants for Navigation Directions
 module.exports.startButtonWidth = 120;
-module.exports.startButtonHeight = module.exports.startButtonWidth*9/16;
+module.exports.startButtonHeight = module.exports.startButtonWidth*6/16;
 module.exports.startButtonText = "Start";
 module.exports.startButtonColor = module.exports.green;
 module.exports.startButtonTop = module.exports.navTop + module.exports.navHeight + 10;
@@ -80,7 +81,7 @@ module.exports.navDirTextWidth = module.exports.deviceWidth - module.exports.nav
 module.exports.navDirCancelWidth = 30;
 module.exports.navDirCancelHeight = module.exports.navDirCancelWidth;
 module.exports.navDirCancelLeft = module.exports.deviceWidth - module.exports.navDirCancelWidth;
-module.exports.navDirCancelTop = module.exports.navBannerTop + (module.exports.navBannerHeight - module.exports.navDirCancelHeight)/2;
+module.exports.navDirCancelTop = (module.exports.navBannerHeight - module.exports.navDirCancelHeight)/2;
 
 
 

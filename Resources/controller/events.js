@@ -114,13 +114,13 @@ Events.prototype.cancelNav = function() {
 		// Animate nav out
 		this.nav_bar_view.animate(animations.closeNavBar());
 		this.nav_open.animate(animations.openNavOpenButton());
-		// animate openNav in
-		this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
-		this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
-		this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
 		// Cancel Navigation
 		this.destination.removeRouteFromMap();
 	}
+	// animate openNav in
+	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
 }
 
 Events.prototype.openNav = function() {
@@ -131,7 +131,20 @@ Events.prototype.openNav = function() {
 }
 
 Events.prototype.startNavigation = function() {
+	this.nav_dir_banner.animate(animations.openNavDirBanner());
 	// Pass off to navigation controller
+	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
+	// Now, take out the navigation bar and place the navOpen behind it, and clear route text
+	this.nav_text.value = "";
+
+}
+
+Events.prototype.endNavigation = function() {
+	this.nav_dir_banner.animate(animations.closeNavDirBanner());
+	// Delete navigation and route from controllers
+	this.cancelNav();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -176,7 +189,12 @@ Events.prototype.addEventListeners = function() {
 	});
 
 	self.nav_dir_start_button.addEventListener('click', function() {
+		Ti.API.info("Clicked start");
 		self.startNavigation();
+	});
+
+	self.nav_dir_cancel_button.addEventListener('click', function() {
+		self.endNavigation();
 	});
 }
 

@@ -20,7 +20,8 @@ NavigationDirectionsView.prototype.createStartButton = function() {
 		color: 'white',
 		font: {fontSize:16, fontFamily: constants.labelFontFamily },
 		width: 'auto',
-		height: 'auto'
+		height: 'auto',
+		text: 'Start'
 	});
 
 	start.add(startLabel);
