@@ -32,6 +32,7 @@ module.exports.shadowOffset = {x:1,y:1};
 module.exports.shadowRadius = 3;
 module.exports.cornerTabSize = 110;
 module.exports.cornerTabSizeRatio = 0.75;
+module.exports.zoomInDeltaValue = 0.0003;
 
 // Constants for option modal
 module.exports.modalWidth = module.exports.deviceWidth*0.8;
@@ -67,7 +68,7 @@ module.exports.navOpenButtonLeftWhenClosed = module.exports.navOpenButtonLeft + 
 
 // Constants for Navigation Directions
 module.exports.startButtonWidth = 120;
-module.exports.startButtonHeight = module.exports.startButtonWidth*6/16;
+module.exports.startButtonHeight = module.exports.startButtonWidth*3/8;
 module.exports.startButtonText = "Start";
 module.exports.startButtonColor = module.exports.green;
 module.exports.startButtonTop = module.exports.navTop + module.exports.navHeight + 10;

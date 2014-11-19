@@ -137,8 +137,10 @@ Events.prototype.startNavigation = function() {
 	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
 	this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
 	this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
+	this.cancelNav();
 	// Now, take out the navigation bar and place the navOpen behind it, and clear route text
 	this.nav_text.value = "";
+	this.mainMap.zoomInOnCurrentLocation();
 
 }
 

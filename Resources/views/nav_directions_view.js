@@ -52,11 +52,14 @@ NavigationDirectionsView.prototype.createNavCancelButton = function() {
 
 NavigationDirectionsView.prototype.createNavText = function() {
 	return Ti.UI.createLabel({
-		minimumFontSize: 14,
+		//minimumFontSize: 14,
 		color: 'white',
-		font: {fontSize:25, fontFamily: constants.labelFontFamily },
+		font: {fontSize:16, fontFamily: constants.labelFontFamily },
 		width: constants.navDirTextWidth,
-		top: 3,
+		height: 'auto',
+		wordWrap: true,
+		horizontalWrap: true,
+		top: 1,
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 	});
 }
@@ -65,9 +68,9 @@ NavigationDirectionsView.prototype.createNavSubText = function() {
 	return Ti.UI.createLabel({
 		minimumFontSize: 14,
 		color: 'white',
-		font: {fontSize:25, fontFamily: constants.labelFontFamily },
+		font: {fontSize:16, fontFamily: constants.labelFontFamily, fontWeight: 'bold' },
 		width: constants.navDirTextWidth,
-		bottom: 3,
+		bottom: 1,
 		textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 	});
 }

@@ -28,9 +28,8 @@ Destination.prototype.addDestinationToMap = function(destination) {
 
 	// Now, send the request and then perform the proper actions
 	var rURL =  constants.startReq + 
-				this.current_lat + ',' + this.current_long + //'42 Gardner St, Allston MA' +// + this.current_location + 
-				//'&destination=49 Pratt St, Allston MA' +
-				'&destination=' + this.destination_point + //'&destination=49 Pratt St, Allston MA' +// + this.destination_point +
+				this.current_lat + ',' + this.current_long +
+				'&destination=' + this.destination_point +
 				constants.endReq;	  
 
 	var client = Ti.Network.createHTTPClient({
@@ -102,6 +101,7 @@ Destination.prototype.calculateNewDelta = function(steps) {
 	var ltDiff = Math.abs(end_location.latitude - this.current_lat);
 	var lgDiff = Math.abs(end_location.longitude - this.current_long);
 	var delta = ltDiff > lgDiff ? ltDiff: lgDiff;
+	// Figure out how to lower latitude
 	mainMap.changeDelta((end_location.latitude + this.current_lat)/2,
 						(end_location.longitude + this.current_long)/2,
 						delta*constants.deltaMultiplier);

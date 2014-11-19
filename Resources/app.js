@@ -93,7 +93,7 @@ var nav_dir_start = nav_dir_view.getStartButton();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
- var directions = new NavDirections(nav_dir_view);
+ var directions = new NavDirections(nav_dir_view, mainMap);
  var events = new Events(directions,
                          mainMap,
                          bottom_menu_view, 

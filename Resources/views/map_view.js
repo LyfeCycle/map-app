@@ -63,6 +63,18 @@ Map.prototype.changeDelta = function(lat, lng, delta) {
     });
 }
 
+Map.prototype.zoomInOnCurrentLocation = function() {
+    Ti.API.info("Trying to zoom in");
+    var self = this;
+    this.mapView.setLocation({
+        animate: true,
+        latitude: self.currentLat,
+        longitude: self.currentLong,
+        latitudeDelta: constants.zoomInDeltaValue,
+        longitudeDelta: constants.zoomInDeltaValue
+    });
+}
+
 /* * * * * * * * * * * * * * * * * * * * *
  * 
  *  Add-ons
