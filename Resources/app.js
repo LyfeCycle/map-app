@@ -105,30 +105,20 @@ function updateAccelData (e) {
             emailDialog.messageBody = '<b>Alex Wong may have been in an accident at location</b>' + coordinates;
             emailDialog.open();
             ///// Upload point to api
-            var http = Ti.Network.createHTTPClient();
-            var post_data = 'name=AlexCrashed&latitude=' + coordinates[0] + '&longitude=' + coordinates[1],
-                headers = {
-                    host: 'lyfecycle-api.herokuapp.com',
-                    port: 80,
-                    method: 'POST',
-                    path: '/locations',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };
+            var xhr = Ti.Network.createHTTPClient();
 
-            var request = http.request(headers, function(response) {
-                response.on('data', function(d) {
-                    console.log(d);
-                });
+            xhr.onload = function(e) {
+                console.log('onload');
+                console.log('response: ' + this.responseText);
+                //handle response, which at minimum will be an HTTP status code
+            };
+            xhr.open('POST','http://lyfecycle-api.herokuapp.com/locations');
+            xhr.setRequestHeader('Content-Type','application/json');
+            xhr.send({
+                name:'Alex Crashed',
+                longitude: coordinates[0],
+                latitude: coordinates[1]
             });
-            request.on('error', function(err) {
-                console.log("An error ocurred!");
-            });
-            request.write(post_data);
-
-            request.end();
-
         }
         lastX = data.x;
         lastY = data.y;
