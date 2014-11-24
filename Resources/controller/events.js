@@ -1,6 +1,7 @@
 var constants = require('../views/constants');
 var animations = require('../views/animations');
 var Destination = require('./destination');
+var Annotation = require('controller/annotations');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -10,7 +11,7 @@ var Destination = require('./destination');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar) {
+function Events(directions, mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -28,9 +29,16 @@ function Events(mainMap, bottom_menu_view, corner_tab_view, social_button, time_
 	this.nav_button = nav_bar.getNavButton();
 	this.nav_text = nav_bar.getTextField();
 	this.nav_cancel = nav_bar.getCancelButton();
+	this.nav_open = nav_bar.getOpenButton();
+	this.nav_bar_view = nav_bar.getNavBar();
+	this.nav_dir_start_button = nav_dir.getStartButton();
+	this.nav_dir_banner = nav_dir.getNavBanner();
+	this.nav_dir_cancel_button = nav_dir.getCancelButton();
 
 	// Controllers
-	this.destination = new Destination(this.mainMap);
+	this.annotations = new Annotation(this.mainMap);
+	this.directions = directions;
+	this.destination = new Destination(this.mainMap, this.annotations, this.directions);
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -95,6 +103,7 @@ Events.prototype.searchNav = function() {
 	} else {
 		var currentLocation = mainMap.getCurrentLocation();
 		this.destination.addDestinationToMap(destinationText);
+		this.nav_dir_start_button.animate(animations.openNavDirStartButton());
 	}
 }
 
@@ -102,7 +111,43 @@ Events.prototype.cancelNav = function() {
 	var destinationText = this.nav_text.value;
 	if (destinationText != "") {
 		this.nav_text.value = "";
+	} else {
+		// Animate nav out
+		this.nav_bar_view.animate(animations.closeNavBar());
+		this.nav_open.animate(animations.openNavOpenButton());
+		// Cancel Navigation
+		this.destination.removeRouteFromMap();
 	}
+	// animate openNav in
+	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
+}
+
+Events.prototype.openNav = function() {
+	// Animate nav in
+	this.nav_bar_view.animate(animations.openNavBar());
+	// animate openNav out
+	this.nav_open.animate(animations.closeNavOpenButton());
+}
+
+Events.prototype.startNavigation = function() {
+	this.nav_dir_banner.animate(animations.openNavDirBanner());
+	// Pass off to navigation controller
+	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.closeNavDirStartButton());
+	this.nav_dir_start_button.animate(animations.solidNavDirStartButton());
+	this.cancelNav();
+	// Now, take out the navigation bar and place the navOpen behind it, and clear route text
+	this.nav_text.value = "";
+	this.mainMap.zoomInOnCurrentLocation();
+
+}
+
+Events.prototype.endNavigation = function() {
+	this.nav_dir_banner.animate(animations.closeNavDirBanner());
+	// Delete navigation and route from controllers
+	this.cancelNav();
 }
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -140,7 +185,20 @@ Events.prototype.addEventListeners = function() {
 
 	self.nav_cancel.addEventListener('click', function() {
 		self.cancelNav();
-	})
+	});
+
+	self.nav_open.addEventListener('click', function() {
+		self.openNav();
+	});
+
+	self.nav_dir_start_button.addEventListener('click', function() {
+		Ti.API.info("Clicked start");
+		self.startNavigation();
+	});
+
+	self.nav_dir_cancel_button.addEventListener('click', function() {
+		self.endNavigation();
+	});
 }
 
 module.exports = Events;

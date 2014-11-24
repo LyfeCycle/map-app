@@ -48,6 +48,7 @@ Markers.prototype.addMarkersToMap = function(markers) {
 				longitude: markers[i].longitude,
 				title: markers[i].name,
 				pincolor: MapModule.ANNOTATION_RED,
+				image: constants.warningIcon,
 				animate: true
 			});
 			this.addMarker(new_markers[i]);

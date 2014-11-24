@@ -47,14 +47,18 @@ Annotation.prototype.removeDestinationLocationAnnotation = function() {
 	this.mainMap.removeAnnotation(this.destinationLocationAnnotation);
 }
 
-// This is the do-all function that will run all the automated helpers
-Annotation.prototype.addAnnotations = function(c_lat, c_lng, c_title, d_lat, d_lng, d_title, d_subtitle) {
+Annotation.prototype.removeAnnotations = function() {
 	if (this.currentLocationAnnotation) {
 		this.removeCurrentLocationAnnotation();
 	}
 	if (this.destinationLocationAnnotation) {
 		this.removeDestinationLocationAnnotation();
 	}
+}
+
+// This is the do-all function that will run all the automated helpers
+Annotation.prototype.addAnnotations = function(c_lat, c_lng, c_title, d_lat, d_lng, d_title, d_subtitle) {
+	this.removeAnnotations();
 	this.addCurrentLocationAnnotation(c_lat, c_lng, c_title);
 	this.addDestinationLocationAnnotation(d_lat, d_lng, d_title, d_subtitle);
 } 
