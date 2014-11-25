@@ -38,6 +38,7 @@ var bottom_menu = new MenuBar();
 var option_view = new OptionView();
 var nav_bar = new NavBar();
 var nav_dir_view = new NavDirView();
+var coordinates = [0, 0];
 
 
 /* * * * * * * * * * * * * * * * * * * * *
@@ -57,8 +58,8 @@ if (Ti.Geolocation.locationServicesEnabled) {
             alert('Couldn\'t get location');
 
         } else {
-            coordinates.push(e.coords.latitude);
-            coordinates.push(e.coords.longitude);
+            coordinates[0] = e.coords.latitude;
+            coordinates[1] = e.coords.longitude;
             mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
         }
     });
@@ -69,6 +70,8 @@ if (Ti.Geolocation.locationServicesEnabled) {
             alert('Couldn\'t get location');
         } else {
             Ti.API.info(e.coords);
+            coordinates[0] = e.coords.latitude;
+            coordinates[1] = e.coords.longitude;
             mainMap.updateValues(e.coords.latitude, e.coords.longitude, e.coords.timestamp);
         }
     });
