@@ -1,8 +1,8 @@
-#appname: LyfeCycle_VersionTwo
-#publisher: kevinmannix
-#url: http://
-#image: appicon.png
-#appid: me.lyfecycle.versiontwo
-#desc: undefined
-#type: mobile
-#guid: bdd08830-554f-414b-8243-97c288cc784b
+#appname:LyfeCycle
+#publisher:kevinmannix
+#url:http://lyfecycle.me
+#image:appicon.png
+#appid:me.lyfecycle.app
+#desc:undefined
+#type:mobile
+#guid:bdd08830-554f-414b-8243-97c288cc784b
