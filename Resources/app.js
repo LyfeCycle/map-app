@@ -22,6 +22,7 @@ var NavDirView = require('views/nav_directions_view');
 var Events = require('controller/events');
 var Markers = require('controller/markers');
 var NavDirections = require('controller/nav_directions');
+var Cyclists = require('controller/cyclists')
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -106,6 +107,9 @@ var nav_dir_start = nav_dir_view.getStartButton();
                          );
  var markers = new Markers(mainMap);
  markers.retrieveAndAddMarkers();
+
+ var cyclists = new Cyclists(mainMap);
+ cyclists.generateCyclists();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
