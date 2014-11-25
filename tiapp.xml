@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
-    <id>me.lyfecycle.versiontwo</id>
-    <name>LyfeCycle_VersionTwo</name>
+    <id>me.lyfecycle.app</id>
+    <name>LyfeCycle</name>
     <version>1.0</version>
     <publisher>kevinmannix</publisher>
     <url>http://</url>
