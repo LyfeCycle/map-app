@@ -11,7 +11,7 @@ var Annotation = require('controller/annotations');
  *
  * * * * * * * * * * * * * * * * * * * * */
 
-function Events(directions, mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir) {
+function Events(directions, mainMap, bottom_menu_view, corner_tab_view, social_button, time_button, option_button, nav_bar, nav_dir, cyclists) {
 
 	// State Variables
 	this.menuBarOpen = false;
@@ -39,6 +39,7 @@ function Events(directions, mainMap, bottom_menu_view, corner_tab_view, social_b
 	this.annotations = new Annotation(this.mainMap);
 	this.directions = directions;
 	this.destination = new Destination(this.mainMap, this.annotations, this.directions);
+	this.cyclists = cyclists;
 
 	// Noe actually add events to these views
 	this.addEventListeners();
@@ -69,9 +70,11 @@ Events.prototype.socialButton = function() {
 	if (!this.socialButtonGrayed) { 
 		this.social_button.image = constants.socialButtonImageGray;
 		this.socialButtonGrayed = !this.socialButtonGrayed;
+		this.cyclists.generateCyclists();
 	} else {
 		this.social_button.image = constants.socialButtonImage;
 		this.socialButtonGrayed = !this.socialButtonGrayed;
+		this.cyclists.removeCyclists();
 	}
 }
 

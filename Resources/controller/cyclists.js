@@ -15,7 +15,7 @@ Cyclists.prototype.generateCyclists = function() {
 		{latitude: 42.349180, longitude: -71.102489}
 	]
 	for (i in points) {
-		this.mainMap.addMarker(MapModule.createAnnotation({
+		this.cyclists.push(MapModule.createAnnotation({
 			latitude: points[i].latitude,
 			longitude: points[i].longitude,
 			title: "Biker",
@@ -23,7 +23,15 @@ Cyclists.prototype.generateCyclists = function() {
 			image: 'images/biker.png',
 			animate: true
 		}));
+		this.mainMap.addMarker(this.cyclists[i]);
 	}
+}
+
+Cyclists.prototype.removeCyclists = function() {
+	for (i in this.cyclists) {
+		this.mainMap.removeAnnotation(this.cyclists[i]);
+	}
+	this.cyclists = [];
 }
 
 module.exports = Cyclists;

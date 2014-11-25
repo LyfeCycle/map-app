@@ -95,6 +95,7 @@ var nav_dir_start = nav_dir_view.getStartButton();
  * * * * * * * * * * * * * * * * * * * * */
 
  var directions = new NavDirections(nav_dir_view, mainMap);
+ var cyclists = new Cyclists(mainMap);
  var events = new Events(directions,
                          mainMap,
                          bottom_menu_view, 
@@ -103,13 +104,11 @@ var nav_dir_start = nav_dir_view.getStartButton();
                          bottom_menu.getTimeButton(),
                          bottom_menu.getOptionButton(),
                          nav_bar,
-                         nav_dir_view
+                         nav_dir_view,
+                         cyclists
                          );
  var markers = new Markers(mainMap);
  markers.retrieveAndAddMarkers();
-
- var cyclists = new Cyclists(mainMap);
- cyclists.generateCyclists();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
