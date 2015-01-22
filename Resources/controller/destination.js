@@ -70,15 +70,6 @@ Destination.prototype.parseJSONtoRoute = function(json, end_destination_text) {
 	}
 }
 
-Destination.prototype.removeRouteFromMap = function() {
-	if (this.current_route_polyline) {
-		this.mainMap.removeDestinationRoute(this.current_route_polyline);
-		this.current_route_nav = undefined;
-		this.current_route_polyline = undefined;	
-	} 
-	this.annotations.removeAnnotations();
-}
-
 Destination.prototype.addRouteToMap = function(steps_obj) {
 	// https://developer.appcelerator.com/question/160923/problems-with-addroute-on-maps-ios7
 	if(JSON.stringify(steps_obj) != '{}') {
@@ -92,7 +83,16 @@ Destination.prototype.addRouteToMap = function(steps_obj) {
 		this.directions.addNavigation(steps_obj['steps']);
 		this.mainMap.addDestinationRoute(this.current_route_polyline);
 	}
-	
+}
+
+Destination.prototype.removeRouteFromMap = function() {
+	if (this.current_route_polyline) {
+		this.mainMap.removeDestinationRoute(this.current_route_polyline);
+		this.current_route_nav = undefined;
+		this.current_route_polyline = undefined;	
+	} 
+	this.annotations.removeAnnotations();
+	this.mainMap.zoomInOnCurrentLocation();
 }
 
 Destination.prototype.calculateNewDelta = function(steps) {

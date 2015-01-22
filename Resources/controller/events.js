@@ -60,6 +60,10 @@ Events.prototype.toggleMenuBar = function(bottom_menu) {
 	if (this.menuBarOpen) {
 		this.bottom_menu_view.animate(animations.closeBottomBar());
 		this.menuBarOpen = false;
+		// Reset all menu items
+		this.ungreyTimeButton();
+		this.ungreySocialButton();
+		this.ungreyOptionButton();
 	} else {
 		this.bottom_menu_view.animate(animations.openBottomBar());
 		this.menuBarOpen = true;
@@ -68,34 +72,58 @@ Events.prototype.toggleMenuBar = function(bottom_menu) {
 
 Events.prototype.socialButton = function() {
 	if (!this.socialButtonGrayed) { 
-		this.social_button.image = constants.socialButtonImageGray;
-		this.socialButtonGrayed = !this.socialButtonGrayed;
-		this.cyclists.generateCyclists();
+		this.greySocialButton();
 	} else {
-		this.social_button.image = constants.socialButtonImage;
-		this.socialButtonGrayed = !this.socialButtonGrayed;
-		this.cyclists.removeCyclists();
+		this.ungreySocialButton();
 	}
+}
+
+Events.prototype.ungreySocialButton = function() {
+	this.social_button.image = constants.socialButtonImage;
+	this.socialButtonGrayed = !this.socialButtonGrayed;
+	this.cyclists.removeCyclists();
+}
+
+Events.prototype.greySocialButton = function() {
+	this.social_button.image = constants.socialButtonImageGray;
+	this.socialButtonGrayed = !this.socialButtonGrayed;
+	this.cyclists.generateCyclists();
 }
 
 Events.prototype.timeButton = function() {
 	if (!this.timeButtonGrayed) { 
-		this.time_button.image = constants.timeButtonImageGray;
-		this.timeButtonGrayed = !this.timeButtonGrayed;
+		this.greyTimeButton();
 	} else {
-		this.time_button.image = constants.timeButtonImage;
-		this.timeButtonGrayed = !this.timeButtonGrayed;
+		this.ungreyTimeButton();
 	}
+}
+
+Events.prototype.ungreyTimeButton = function() {
+	this.time_button.image = constants.timeButtonImage;
+	this.timeButtonGrayed = !this.timeButtonGrayed;
+}
+
+Events.prototype.greyTimeButton = function() {
+	this.time_button.image = constants.timeButtonImageGray;
+	this.timeButtonGrayed = !this.timeButtonGrayed;
 }
 
 Events.prototype.optionButton = function() {
 	if (!this.optionButtonGrayed) { 
-		this.option_button.image = constants.optionButtonImageGray;
-		this.optionButtonGrayed = !this.optionButtonGrayed;
+		this.greyOptionButton();
 	} else {
-		this.option_button.image = constants.optionButtonImage;
-		this.optionButtonGrayed = !this.optionButtonGrayed;
+		this.ungreyOptionButton();
 	}
+}
+
+Events.prototype.ungreyOptionButton = function() {
+	this.option_button.image = constants.optionButtonImage;
+	this.optionButtonGrayed = !this.optionButtonGrayed;
+}
+
+Events.prototype.greyOptionButton = function() {
+	this.option_button.image = constants.optionButtonImageGray;
+		this.optionButtonGrayed = !this.optionButtonGrayed;
 }
 
 Events.prototype.searchNav = function() {
@@ -114,12 +142,12 @@ Events.prototype.cancelNav = function() {
 	var destinationText = this.nav_text.value;
 	if (destinationText != "") {
 		this.nav_text.value = "";
+		// Remove pins, zoom back into location
+		this.destination.removeRouteFromMap();
 	} else {
 		// Animate nav out
 		this.nav_bar_view.animate(animations.closeNavBar());
 		this.nav_open.animate(animations.openNavOpenButton());
-		// Cancel Navigation
-		this.destination.removeRouteFromMap();
 	}
 	// animate openNav in
 	this.nav_dir_start_button.animate(animations.fadeNavDirStartButton());

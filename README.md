@@ -19,6 +19,23 @@ and download the raw file
 * Place this copied folder within _Library/Application Support/Titanium/modules/iphone_ 
 * Clone this repository into it's own folder
 
+<h3>To-Do</h3>
+* ~~Cancel button zooms into current location~~
+* ~~Cancel button removes pins~~
+* Add options page
+* Add timer page
+	* Easy capability: 
+		* "Go"
+		* "Stop"
+		* Keeps time log, date, start and stop
+	* Medium:
+		* Ability to follow routes set
+	* Hard:
+		* Ability to upload routes to your profile
+* Look at Socket.io for real time communication between riders
+* Send out "looking for other rider" alert
+
+
 
 Titanium stuff:
 
