@@ -22,6 +22,9 @@ and download the raw file
 <h3>To-Do</h3>
 * ~~Cancel button zooms into current location~~
 * ~~Cancel button removes pins~~
+* MAJOR REFACTOR, removing all dependencies in files
+	* We pass in a lot of objects into other objects. In truth, we don't need to do this if we use all the same names
+	* This will help the consistency of the code, make it less confusing, etc.
 * Add options page
 * Add timer page
 	* Easy capability: 
