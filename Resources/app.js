@@ -17,6 +17,7 @@ var animations = require('views/animations');
 var OptionView = require('views/option_view');
 var NavBar = require('views/navigation_bar');
 var NavDirView = require('views/nav_directions_view');
+var ListDirectionsView = require('views/list_directions_view');
 
 // Controllers
 var Events = require('controller/events');
@@ -24,6 +25,7 @@ var Markers = require('controller/markers');
 var NavDirections = require('controller/nav_directions');
 var Cyclists = require('controller/cyclists');
 var Traffic = require('controller/traffic_controller');
+var ListDirectionsController = require('controller/list_directions_controller');
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -155,6 +157,7 @@ var nav_view = nav_bar.getNavBar();
 var nav_open_bar_view = nav_bar.getOpenButton();
 var nav_dir_banner = nav_dir_view.getNavBanner();
 var nav_dir_start = nav_dir_view.getStartButton();
+var listDirectionsView = new ListDirectionsView();
 
 /* * * * * * * * * * * * * * * * * * * * *
  * 
@@ -162,6 +165,7 @@ var nav_dir_start = nav_dir_view.getStartButton();
  *
  * * * * * * * * * * * * * * * * * * * * */
 
+ var listDirectionsController = new ListDirectionsController();
  var directions = new NavDirections(nav_dir_view, mainMap);
  var cyclists = new Cyclists(mainMap);
  var events = new Events(directions,
@@ -193,6 +197,7 @@ win.add(nav_view);
 win.add(nav_open_bar_view);
 win.add(nav_dir_banner);
 win.add(nav_dir_start);
+win.add(listDirectionsView.tableView);
 //win.add(option_view.getOptionView());
 //win.add(bottom_menu.getBottomMenu());
 win.open();

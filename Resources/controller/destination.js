@@ -35,6 +35,7 @@ Destination.prototype.addDestinationToMap = function(destination) {
 	var client = Ti.Network.createHTTPClient({
 		onload : function(e) {
 		 self.addRouteToMap(self.parseJSONtoRoute(this.responseText, this.destination_point));
+		 // listDirectionsController.putDirectionsInList(this.responseText);
 		},
 		onerror : function(e) {
 		 alert(constants.destinationFailMessage);
@@ -102,6 +103,10 @@ Destination.prototype.calculateNewDelta = function(steps) {
 	var lgDiff = Math.abs(end_location.longitude - this.current_long);
 	var delta = ltDiff > lgDiff ? ltDiff: lgDiff;
 	// Figure out how to lower latitude
+	// Shift up latitude for the list view
+	// mainMap.changeDelta((end_location.latitude + this.current_lat - 0.09)/2,
+	// 					(end_location.longitude + this.current_long)/2,
+	// 					delta*constants.deltaMultiplierForListView);
 	mainMap.changeDelta((end_location.latitude + this.current_lat)/2,
 						(end_location.longitude + this.current_long)/2,
 						delta*constants.deltaMultiplier);
